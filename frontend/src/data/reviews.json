@@ -1,0 +1,8 @@
+[
+  { "id": "r1", "packageId": "p1", "name": "Elena Marsh", "avatar": "https://i.pravatar.cc/100?img=47", "rating": 5, "date": "2026-05-12", "comment": "The catamaran sunset alone was worth the trip. Our suite's terrace looked straight into the caldera." },
+  { "id": "r2", "packageId": "p1", "name": "Rohan Bhatt", "avatar": "https://i.pravatar.cc/100?img=12", "rating": 5, "date": "2026-04-02", "comment": "Well-paced, not rushed. The wine tour guide knew every family that owned the vineyards." },
+  { "id": "r3", "packageId": "p5", "name": "Naomi Cruz", "avatar": "https://i.pravatar.cc/100?img=32", "rating": 5, "date": "2026-06-01", "comment": "Ubud to Gili was the perfect split — jungle mornings, beach evenings." },
+  { "id": "r4", "packageId": "p8", "name": "Daniel Osei", "avatar": "https://i.pravatar.cc/100?img=15", "rating": 5, "date": "2026-03-20", "comment": "Arriving at the Sun Gate at sunrise after two days of trekking is something I'll never forget." },
+  { "id": "r5", "packageId": "p6", "name": "Freya Lindqvist", "avatar": "https://i.pravatar.cc/100?img=9", "rating": 4, "date": "2026-02-14", "comment": "Saw the lights on night two. Guide was excellent, van was warm, itinerary well-paced." },
+  { "id": "r6", "packageId": "p4", "name": "Marco Bellini", "avatar": "https://i.pravatar.cc/100?img=51", "rating": 5, "date": "2026-01-30", "comment": "Sleeping under the Sahara stars after the camel trek was the highlight of our year." }
+]
