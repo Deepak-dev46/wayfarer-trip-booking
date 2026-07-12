@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Box, Container, Grid, Typography, TextField, Button, IconButton, Stack, Divider } from '@mui/material';
 import ExploreIcon from '@mui/icons-material/Explore';
 import FacebookIcon from '@mui/icons-material/Facebook';
@@ -13,6 +13,7 @@ import PlaceIcon from '@mui/icons-material/PlaceOutlined';
 export default function Footer() {
   const [email, setEmail] = useState('');
   const [subscribed, setSubscribed] = useState(false);
+  const navigate = useNavigate();
 
   const handleSubscribe = (e) => {
     e.preventDefault();
@@ -21,6 +22,26 @@ export default function Footer() {
     setEmail('');
   };
 
+  const handleSocialMedia = (Icon) => {
+    if (Icon==FacebookIcon) {
+      console.log(" I am Facebook");
+      navigate('https://www.facebook.com/Tripaholiday-106187646882091');
+    }
+    else if (Icon==InstagramIcon) {
+      console.log(" I am Instagram");
+      navigate('https://www.instagram.com/tripaholiday/');
+    }
+    else if (Icon==TwitterIcon) {
+      console.log(" I am Twitter");
+      navigate('https://twitter.com/tripaholiday'); 
+    }
+    else if (Icon==YouTubeIcon) {
+      console.log(" I am YouTube"); 
+      navigate('https://www.youtube.com/@tripaholiday');
+    }
+  }
+
+
   return (
     <Box component="footer" sx={{ bgcolor: 'primary.main', color: '#fff', pt: 8, pb: 4, mt: 10 }}>
       <Container maxWidth="lg">
@@ -28,14 +49,14 @@ export default function Footer() {
           <Grid item xs={12} md={4}>
             <Stack direction="row" alignItems="center" spacing={1} mb={2}>
               <ExploreIcon sx={{ color: 'secondary.main' }} />
-              <Typography variant="h5" fontWeight={700}>Wayfarer</Typography>
+              <Typography variant="h5" fontWeight={700}>Tripa Holidays</Typography>
             </Stack>
             <Typography variant="body2" sx={{ opacity: 0.75, mb: 2, maxWidth: 300 }}>
               Trips worth telling stories about. Curated journeys, honest pricing, and a team that answers the phone.
             </Typography>
             <Stack direction="row" spacing={1}>
               {[FacebookIcon, InstagramIcon, TwitterIcon, YouTubeIcon].map((Icon, i) => (
-                <IconButton key={i} size="small" sx={{ color: '#fff', bgcolor: 'rgba(255,255,255,0.08)' }}>
+                <IconButton key={i} size="small" sx={{ color: '#fff', bgcolor: 'rgba(255,255,255,0.08)' }} onClick={() => {handleSocialMedia(Icon);}}>
                   <Icon fontSize="small" />
                 </IconButton>
               ))}
@@ -89,15 +110,15 @@ export default function Footer() {
             <Stack spacing={1} mt={3}>
               <Stack direction="row" spacing={1} alignItems="center">
                 <EmailIcon fontSize="small" sx={{ opacity: 0.75 }} />
-                <Typography variant="body2" sx={{ opacity: 0.75 }}>hello@wayfarer-trips.example</Typography>
+                <Typography variant="body2" sx={{ opacity: 0.75 }}>tripaholiday@gmail.com</Typography>
               </Stack>
               <Stack direction="row" spacing={1} alignItems="center">
                 <PhoneIcon fontSize="small" sx={{ opacity: 0.75 }} />
-                <Typography variant="body2" sx={{ opacity: 0.75 }}>+1 (555) 019-2837</Typography>
+                <Typography variant="body2" sx={{ opacity: 0.75 }}>+91 99437 06378</Typography>
               </Stack>
               <Stack direction="row" spacing={1} alignItems="center">
                 <PlaceIcon fontSize="small" sx={{ opacity: 0.75 }} />
-                <Typography variant="body2" sx={{ opacity: 0.75 }}>148 Harbor Row, Portside, CA</Typography>
+                <Typography variant="body2" sx={{ opacity: 0.75 }}>148 Harbor Row, Portside, IN</Typography>
               </Stack>
             </Stack>
           </Grid>

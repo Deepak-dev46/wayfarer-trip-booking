@@ -10,6 +10,7 @@ import LightModeIcon from '@mui/icons-material/LightModeOutlined';
 import ExploreIcon from '@mui/icons-material/Explore';
 import { useThemeMode } from '../context/ThemeModeContext';
 import { useAuth } from '../context/AuthContext';
+import TripaHolidaysIcon from './TripaHolidaysIcon';
 
 const navLinks = [
   { label: 'Home', to: '/' },
@@ -19,6 +20,7 @@ const navLinks = [
   { label: 'About', to: '/about' },
   { label: 'Contact', to: '/contact' },
 ];
+
 
 export default function Navbar() {
   const trigger = useScrollTrigger({ threshold: 8 });
@@ -51,9 +53,9 @@ export default function Navbar() {
       <Container maxWidth="lg">
         <Toolbar disableGutters sx={{ py: 1.2, justifyContent: 'space-between' }}>
           <Box component={Link} to="/" sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-            <ExploreIcon sx={{ color: 'secondary.main', fontSize: 30 }} />
+            <TripaHolidaysIcon width={70} size={40} />
             <Typography variant="h5" sx={{ fontWeight: 700, letterSpacing: '-0.01em' }}>
-              Wayfarer
+              Tripa Holidays
             </Typography>
           </Box>
 
@@ -75,9 +77,9 @@ export default function Navbar() {
           </Box>
 
           <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-            <IconButton onClick={toggleMode} aria-label="Toggle dark mode">
+            {/* <IconButton onClick={toggleMode} aria-label="Toggle dark mode">
               {mode === 'light' ? <DarkModeIcon /> : <LightModeIcon sx={{ color: '#F0BC8B' }} />}
-            </IconButton>
+            </IconButton> */}
 
             <Box sx={{ display: { xs: 'none', md: 'flex' }, alignItems: 'center', gap: 1 }}>
               {isAuthenticated ? (
