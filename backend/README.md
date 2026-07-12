@@ -1,106 +1,66 @@
-# auth-service
+# Wayfarer Backend
 
-A minimal, standalone Spring Boot skeleton that does exactly one job: **login and logout with JWT**, backed by MySQL. No Lombok, no Builder pattern — explicit constructors, getters, and setters throughout, consistent with the rest of the ServiceEverZ/Wayfarer backend services.
+Spring Boot + MySQL backend for the Wayfarer trip booking frontend, with JWT authentication.
+Built to match the API contract used by `src/services/mockApi.js` in the React app, so you can
+swap the mock service for real HTTP calls with minimal changes.
 
 ## Stack
-
-- Spring Boot 3.2.5, Java 17
-- Spring Security (stateless, JWT-based)
-- Spring Data JPA + MySQL
-- JJWT 0.12.5 for token generation/validation
-- No Lombok, no Builder pattern
-
-## What's in scope (and what isn't)
-
-This is a **skeleton** — it only handles authentication:
-
-- `POST /api/auth/login` — validates credentials against MySQL, returns a JWT
-- `POST /api/auth/logout` — blacklists the current JWT so it can't be reused before it expires
-
-It does **not** include registration, password reset, or role/permission management endpoints — wire those into this service or call it from your other microservices as needed. The `User` entity and `UserRepository` are there to build on.
+- Java 17, Spring Boot 3.3.2
+- Spring Web, Spring Data JPA, Spring Security
+- MySQL 8
+- JWT (jjwt 0.12.6)
+- No Lombok, no Builder pattern — explicit constructors/getters/setters throughout
 
 ## Setup
 
-1. Create the database (or let Hibernate do it — `createDatabaseIfNotExist=true` is already set):
+1. Create a MySQL database (or let it auto-create):
    ```sql
-   CREATE DATABASE wayfarer_auth;
+   CREATE DATABASE wayfarer_db;
    ```
-   `schema-reference.sql` is included if you'd rather hand this to a DBA or run it by hand; `ddl-auto=update` will create/update the tables automatically either way.
-
-2. Update `src/main/resources/application.properties` with your MySQL credentials:
-   ```properties
-   spring.datasource.username=root
-   spring.datasource.password=root
+2. Update `src/main/resources/application.properties` with your MySQL username/password and,
+   for production, a strong `app.jwt.secret` (32+ characters, ideally loaded from an env var).
+3. Run:
    ```
-
-3. **Replace the JWT secret** before running this anywhere beyond your laptop:
-   ```properties
-   app.jwt.secret=CHANGE_ME_this_is_a_placeholder_secret_key_replace_before_deploying_32bytes_min
-   ```
-
-4. Run it:
-   ```bash
    mvn spring-boot:run
    ```
-   Service starts on `http://localhost:8081`.
+   The API starts on **http://localhost:8085**.
 
-## Seeded accounts
+On first run, `DataSeeder` populates the database with:
+- An admin account: `admin@trip.com` / `admin123` (override via `app.seed.admin-email` /
+  `app.seed.admin-password`)
+- The same demo packages, offers, destinations, reviews, users, bookings, and contacts that
+  ship in the frontend's `src/data/*.json` seed files, so the UI looks identical to the mock-API
+  version on first load.
 
-On first startup, `DataSeeder` creates two accounts if they don't already exist:
+Set `app.seed.enabled=false` to skip demo-data seeding (the admin account is always seeded).
 
-| Username | Password  | Role  |
-|----------|-----------|-------|
-| `admin`  | `admin123`| ADMIN |
-| `demo`   | `demo1234`| USER  |
+## Auth
 
-## Trying it out
+- `POST /api/auth/register` — `{ name, email, password, phone }` → `{ token, role, user }`
+- `POST /api/auth/login` — `{ email, password }` → `{ token, role, user }`
 
-**Login**
-```bash
-curl -X POST http://localhost:8081/api/auth/login \
-  -H "Content-Type: application/json" \
-  -d '{"username": "admin", "password": "admin123"}'
-```
+Send the token on subsequent requests: `Authorization: Bearer <token>`.
 
-Response:
-```json
-{
-  "token": "eyJhbGciOiJIUzI1NiJ9...",
-  "tokenType": "Bearer",
-  "expiresInSeconds": 3600,
-  "username": "admin",
-  "role": "ADMIN"
-}
-```
+## Endpoints
 
-**Logout** (requires the token from login)
-```bash
-curl -X POST http://localhost:8081/api/auth/logout \
-  -H "Authorization: Bearer <token>"
-```
+| Resource      | Public                                  | Admin-only (`ROLE_ADMIN`)                     |
+|---------------|------------------------------------------|------------------------------------------------|
+| Packages      | GET /api/packages, GET /api/packages/{id} | POST / PUT / DELETE /api/packages              |
+| Offers        | GET /api/offers, GET /api/offers/{id}     | POST / PUT / DELETE /api/offers                |
+| Destinations  | GET /api/destinations, GET /{id}          | — (read-only, matches frontend)                |
+| Reviews       | GET /api/reviews?packageId={id}           | — (read-only, matches frontend)                |
+| Bookings      | POST /api/bookings (anyone can book)      | GET, PUT /{id}/status, DELETE /api/bookings     |
+| Contacts      | POST /api/contacts (anyone can submit)    | GET, PUT /{id}/read, DELETE /api/contacts       |
+| Users         | —                                        | GET / DELETE /api/users                        |
 
-Response:
-```json
-{ "message": "Logged out successfully" }
-```
+This mirrors `mockApi.js` exactly: only `login`, `register`, `createBooking`, and `createContact`
+are callable without being signed in; every admin CRUD action requires the ADMIN role.
 
-Once a token is used to log out, `JwtAuthenticationFilter` will reject it on any subsequent request even though it hasn't naturally expired yet — it's checked against the `blacklisted_tokens` table.
-
-## Folder structure
-
-```
-src/main/java/com/wayfarer/authservice/
- ├── config/          SecurityConfig, DataSeeder
- ├── controller/       AuthController
- ├── service/         AuthService
- ├── entity/          User, Role, BlacklistedToken
- ├── repository/       UserRepository, BlacklistedTokenRepository
- ├── dto/              LoginRequest, LoginResponse, MessageResponse, ApiErrorResponse
- ├── security/        JwtUtil, JwtAuthenticationFilter, AuthenticatedUser,
- │                     UserDetailsServiceImpl, TokenBlacklistService
- └── exception/        InvalidCredentialsException, GlobalExceptionHandler
-```
-
-## Notes on how logout works with JWT
-
-JWTs are stateless by design, so "logging out" isn't a native concept — the token stays valid until it expires whether or not the server "remembers" the session. This skeleton handles that the standard way: a `blacklisted_tokens` table in MySQL records tokens that have been explicitly logged out, and `JwtAuthenticationFilter` checks every incoming token against that table in addition to checking its signature and expiry. A scheduled job (`TokenBlacklistService.purgeExpiredTokens`, hourly) deletes blacklisted rows once their token would have expired naturally anyway, so the table doesn't grow forever.
+## Notes
+- IDs are auto-incrementing `Long` values (the mock API used generated string IDs like `p1`,
+  `u_172...`); update the frontend to treat `id` as a number, or stringify it locally if needed.
+- Booking `status` accepts `Pending`, `Confirmed`, `Cancelled` (same casing as the mock data).
+- CORS is open to `http://localhost:5173` and `http://localhost:3000` by default — adjust
+  `app.cors.allowed-origins` for your deployment.
+- Security is fully self-contained in this service (JWT + BCrypt), unlike the ServiceEverZ
+  microservices where auth lives in a separate service — this is a standalone project.

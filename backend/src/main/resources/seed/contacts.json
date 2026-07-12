@@ -1,0 +1,5 @@
+[
+  { "id": "c1", "name": "Sofia Reyes", "email": "sofia.reyes@example.com", "phone": "+1 555 0110", "subject": "Group booking discount", "message": "We're a group of 12 looking at the Bali package for a corporate retreat. Do you offer group rates?", "date": "2026-06-20", "read": false },
+  { "id": "c2", "name": "James Okoro", "email": "james.okoro@example.com", "phone": "+234 802 555 0134", "subject": "Visa requirements", "message": "Could you confirm the visa requirements for the Morocco trip for a Nigerian passport holder?", "date": "2026-06-22", "read": true },
+  { "id": "c3", "name": "Lena Fischer", "email": "lena.fischer@example.com", "phone": "+49 151 23456789", "subject": "Reschedule request", "message": "I need to move my Iceland trip from September to November, is that possible?", "date": "2026-06-25", "read": false }
+]

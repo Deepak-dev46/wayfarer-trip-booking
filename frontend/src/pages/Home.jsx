@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import {
   Box, Container, Typography, Button, Grid, TextField, MenuItem, Stack, Paper, InputAdornment,
@@ -22,6 +22,7 @@ import DestinationCard from '../components/DestinationCard';
 import ReviewCard from '../components/ReviewCard';
 import { CardGridSkeleton } from '../components/SkeletonCards';
 import { categories, formatDate } from '../utils/formatters';
+import {BASE_URL_API} from '../services/url'
 
 const stats = [
   { label: 'Happy Travelers', value: '48,000+' },
@@ -54,6 +55,10 @@ export default function Home() {
     navigate(`/packages?${params.toString()}`);
   };
 
+
+  useEffect(()=>{
+    console.log(BASE_URL_API);
+  },[])
   return (
     <Box>
       {/* HERO */}
