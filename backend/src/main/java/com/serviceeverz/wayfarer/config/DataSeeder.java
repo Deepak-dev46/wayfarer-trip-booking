@@ -229,7 +229,7 @@ public class DataSeeder implements CommandLineRunner {
             contact.setSubject(text(node, "subject"));
             contact.setMessage(text(node, "message"));
             contact.setDate(date(node, "date"));
-            contact.setRead(node.path("read").asBoolean(false));
+            contact.setReadState(node.path("read").asBoolean(false));
             contactRepository.save(contact);
         }
     }

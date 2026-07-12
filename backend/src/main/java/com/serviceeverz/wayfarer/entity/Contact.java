@@ -33,7 +33,7 @@ public class Contact {
     private LocalDate date;
 
     @Column(nullable = false)
-    private Boolean read = Boolean.FALSE;
+    private Boolean readState = Boolean.FALSE;
 
     public Contact() {
     }
@@ -94,11 +94,12 @@ public class Contact {
         this.date = date;
     }
 
-    public Boolean getRead() {
-        return read;
-    }
+	public Boolean getReadState() {
+		return readState;
+	}
 
-    public void setRead(Boolean read) {
-        this.read = read;
-    }
+	public void setReadState(Boolean readState) {
+		this.readState = readState;
+	}
+
 }

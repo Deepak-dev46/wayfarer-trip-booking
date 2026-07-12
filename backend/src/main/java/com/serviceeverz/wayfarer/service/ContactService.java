@@ -27,14 +27,14 @@ public class ContactService {
     public Contact create(Contact contact) {
         contact.setId(null);
         contact.setDate(LocalDate.now());
-        contact.setRead(false);
+        contact.setReadState(false);
         return contactRepository.save(contact);
     }
 
     public Contact markRead(Long id) {
         Contact existing = contactRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Contact not found with id: " + id));
-        existing.setRead(true);
+        existing.setReadState(true);
         return contactRepository.save(existing);
     }
 
