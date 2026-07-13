@@ -40,7 +40,7 @@ export default function AdminLogin() {
             </Stack>
             <Typography variant="h5" fontWeight={700} textAlign="center" mb={0.5}>Admin Login</Typography>
             <Typography variant="body2" color="text.secondary" textAlign="center" mb={3}>
-              Wayfarer management dashboard
+              Tripa Holidays management dashboard
             </Typography>
 
             {error && <Alert severity="error" sx={{ mb: 2 }}>{error}</Alert>}
@@ -60,10 +60,6 @@ export default function AdminLogin() {
                 </Button>
               </Stack>
             </Box>
-
-            <Typography variant="caption" color="text.secondary" display="block" textAlign="center" mt={3}>
-              Demo: admin@trip.com / admin123
-            </Typography>
             <Typography textAlign="center" mt={2}>
               <Typography component={Link} to="/" variant="body2" color="text.secondary">← Back to site</Typography>
             </Typography>

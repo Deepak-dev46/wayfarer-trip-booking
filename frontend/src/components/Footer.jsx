@@ -110,15 +110,15 @@ export default function Footer() {
             <Stack spacing={1} mt={3}>
               <Stack direction="row" spacing={1} alignItems="center">
                 <EmailIcon fontSize="small" sx={{ opacity: 0.75 }} />
-                <Typography variant="body2" sx={{ opacity: 0.75 }}>tripaholiday@gmail.com</Typography>
+                <Typography variant="body2" sx={{ opacity: 0.75 }}>leintelligensiagroup@gmail.com</Typography>
               </Stack>
               <Stack direction="row" spacing={1} alignItems="center">
                 <PhoneIcon fontSize="small" sx={{ opacity: 0.75 }} />
-                <Typography variant="body2" sx={{ opacity: 0.75 }}>+91 99437 06378</Typography>
+                <Typography variant="body2" sx={{ opacity: 0.75 }}>+91 90430 13104</Typography>
               </Stack>
               <Stack direction="row" spacing={1} alignItems="center">
                 <PlaceIcon fontSize="small" sx={{ opacity: 0.75 }} />
-                <Typography variant="body2" sx={{ opacity: 0.75 }}>148 Harbor Row, Portside, IN</Typography>
+                <Typography variant="body2" sx={{ opacity: 0.75 }}>38/13, Desigar Street, Vadapalani, Chennai - 600026, Tamilnadu, IN</Typography>
               </Stack>
             </Stack>
           </Grid>
@@ -126,7 +126,7 @@ export default function Footer() {
 
         <Divider sx={{ borderColor: 'rgba(255,255,255,0.1)', my: 4 }} />
         <Typography variant="body2" sx={{ opacity: 0.6, textAlign: 'center' }}>
-          © {new Date().getFullYear()} Wayfarer Trips. All rights reserved. This is a demo project using mock data only.
+          © {new Date().getFullYear()} Tripa Holidays. All rights reserved.
         </Typography>
       </Container>
     </Box>

@@ -54,9 +54,6 @@ export default function Login() {
           </Box>
 
           <Divider sx={{ my: 3 }}>or</Divider>
-          <Typography variant="body2" color="text.secondary" textAlign="center">
-            Demo account: <strong>demo@wayfarer.com</strong> / <strong>demo123</strong>
-          </Typography>
           <Typography textAlign="center" sx={{ mt: 3 }}>
             Don't have an account?{' '}
             <Typography component={Link} to="/register" color="secondary.dark" fontWeight={700}>

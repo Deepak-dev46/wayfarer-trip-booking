@@ -1,8 +1,9 @@
-import { createContext, useContext, useEffect, useState } from 'react';
-import { mockApi } from '../services/mockApi';
+import { createContext, useContext, useEffect, useState } from "react";
+import { mockApi } from "../services/mockApi";
+import { authApi } from "../services/api";
 
 const AuthContext = createContext(null);
-const SESSION_KEY = 'wayfarer_session_v1';
+const SESSION_KEY = "wayfarer_session_v1";
 
 export function AuthProvider({ children }) {
   const [session, setSession] = useState(null);
@@ -27,24 +28,27 @@ export function AuthProvider({ children }) {
   };
 
   const login = async (email, password) => {
-    const result = await mockApi.login(email, password);
+    const res = await authApi.login(email, password);
+    const result = res.data;
+    console.log(result);
     persist(result);
     return result;
   };
-
+  
   const register = async (payload) => {
-    const result = await mockApi.register(payload);
+    const res = await authApi.register(payload);
+    const result = res.data;
     persist(result);
     return result;
   };
 
-  const logout = () => persist(null);
+  const logout = () =>{persist(null)};
 
   const value = {
     session,
     loading,
     isAuthenticated: !!session,
-    isAdmin: session?.role === 'admin',
+    isAdmin: session?.role === "admin",
     user: session?.user || null,
     login,
     register,
@@ -56,6 +60,6 @@ export function AuthProvider({ children }) {
 
 export function useAuth() {
   const ctx = useContext(AuthContext);
-  if (!ctx) throw new Error('useAuth must be used within AuthProvider');
+  if (!ctx) throw new Error("useAuth must be used within AuthProvider");
   return ctx;
 }

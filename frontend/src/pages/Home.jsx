@@ -22,7 +22,6 @@ import DestinationCard from '../components/DestinationCard';
 import ReviewCard from '../components/ReviewCard';
 import { CardGridSkeleton } from '../components/SkeletonCards';
 import { categories, formatDate } from '../utils/formatters';
-import {BASE_URL_API} from '../services/url'
 
 const stats = [
   { label: 'Happy Travelers', value: '48,000+' },
@@ -54,11 +53,6 @@ export default function Home() {
     if (search.category) params.set('category', search.category);
     navigate(`/packages?${params.toString()}`);
   };
-
-
-  useEffect(()=>{
-    console.log(BASE_URL_API);
-  },[])
   return (
     <Box>
       {/* HERO */}
@@ -84,10 +78,10 @@ export default function Home() {
             <Grid item xs={12} md={7}>
               <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
                 <Typography variant="overline" sx={{ color: '#F0BC8B', fontWeight: 700, letterSpacing: 3 }}>
-                  WAYFARER TRIPS
+                  TRIPA HOLIDAYS
                 </Typography>
                 <Typography variant="h1" sx={{ color: '#fff', fontSize: { xs: 40, md: 62 }, mb: 2, lineHeight: 1.05 }}>
-                  Go somewhere<br /> worth talking about.
+                  Discover<br /> the Difference.
                 </Typography>
                 <Typography variant="h6" sx={{ color: 'rgba(255,255,255,0.85)', fontWeight: 400, mb: 4, maxWidth: 520 }}>
                   Hand-built itineraries across 120+ destinations, priced honestly and backed by real people when things change.
