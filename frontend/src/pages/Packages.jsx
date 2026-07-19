@@ -31,6 +31,7 @@ export default function Packages() {
 
   const [query, setQuery] = useState(searchParams.get('q') || '');
   const [category, setCategory] = useState(searchParams.get('category') || '');
+  const [tripType, setTripType] = useState(searchParams.get('tripType') || '');
   const [duration, setDuration] = useState('Any');
   const [priceRange, setPriceRange] = useState([1000, 2500]);
   const [minRating, setMinRating] = useState(0);
@@ -40,6 +41,7 @@ export default function Packages() {
   useEffect(() => {
     setQuery(searchParams.get('q') || '');
     setCategory(searchParams.get('category') || '');
+    setTripType(searchParams.get('tripType') || '');
   }, [searchParams]);
 
   const filtered = useMemo(() => {
@@ -49,6 +51,7 @@ export default function Packages() {
       result = result.filter((p) => p.title.toLowerCase().includes(q) || p.location.toLowerCase().includes(q));
     }
     if (category) result = result.filter((p) => p.category === category);
+    if (tripType) result = result.filter((p) => (p.tripType || 'International') === tripType);
     if (duration !== 'Any') {
       result = result.filter((p) => {
         if (duration === '1-4 days') return p.duration <= 4;
@@ -65,19 +68,28 @@ export default function Packages() {
     else result.sort((a, b) => (b.trending === a.trending ? b.reviewCount - a.reviewCount : b.trending ? 1 : -1));
 
     return result;
-  }, [packages, query, category, duration, priceRange, minRating, sort]);
+  }, [packages, query, category, tripType, duration, priceRange, minRating, sort]);
 
   const totalPages = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE));
   const paged = filtered.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE);
 
-  useEffect(() => setPage(1), [query, category, duration, priceRange, minRating, sort]);
+  useEffect(() => setPage(1), [query, category, tripType, duration, priceRange, minRating, sort]);
 
   const clearFilters = () => {
-    setQuery(''); setCategory(''); setDuration('Any'); setPriceRange([1000, 2500]); setMinRating(0); setSort('popular');
+    setQuery(''); setCategory(''); setTripType(''); setDuration('Any'); setPriceRange([1000, 2500]); setMinRating(0); setSort('popular');
   };
 
   const FilterPanel = (
     <Stack spacing={3} sx={{ p: { xs: 2.5, md: 0 } }}>
+      <Box>
+        <Typography variant="subtitle2" fontWeight={700} mb={1}>Trip Type</Typography>
+        <Stack direction="row" flexWrap="wrap" gap={1}>
+          <Chip label="All" onClick={() => setTripType('')} color={tripType === '' ? 'secondary' : 'default'} variant={tripType === '' ? 'filled' : 'outlined'} />
+          <Chip label="International" onClick={() => setTripType('International')} color={tripType === 'International' ? 'secondary' : 'default'} variant={tripType === 'International' ? 'filled' : 'outlined'} />
+          <Chip label="Domestic" onClick={() => setTripType('Domestic')} color={tripType === 'Domestic' ? 'secondary' : 'default'} variant={tripType === 'Domestic' ? 'filled' : 'outlined'} />
+        </Stack>
+      </Box>
+
       <Box>
         <Typography variant="subtitle2" fontWeight={700} mb={1}>Category</Typography>
         <Stack direction="row" flexWrap="wrap" gap={1}>
@@ -119,9 +131,9 @@ export default function Packages() {
 
   return (
     <Container maxWidth="lg" sx={{ py: 6 }}>
-      <Typography variant="h3" sx={{ fontSize: { xs: 30, md: 40 }, mb: 1 }}>All Packages</Typography>
+      <Typography variant="h3" sx={{ fontSize: { xs: 30, md: 40 }, mb: 1 }}>International & Domestic Packages</Typography>
       <Typography color="text.secondary" mb={4}>
-        {filtered.length} trip{filtered.length === 1 ? '' : 's'} found
+        {filtered.length} trip{filtered.length === 1 ? '' : 's'} found{tripType ? ` in ${tripType.toLowerCase()} travel` : ''}
       </Typography>
 
       <Stack direction="row" spacing={2} sx={{ mb: 4 }}>

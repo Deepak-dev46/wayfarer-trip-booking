@@ -86,12 +86,12 @@ export default function Home() {
                 <Typography variant="h6" sx={{ color: 'rgba(255,255,255,0.85)', fontWeight: 400, mb: 4, maxWidth: 520 }}>
                   Hand-built itineraries across 120+ destinations, priced honestly and backed by real people when things change.
                 </Typography>
-                <Stack direction="row" spacing={2}>
-                  <Button size="large" variant="contained" color="secondary" onClick={() => navigate('/packages')}>
-                    Explore Packages
+                <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2}>
+                  <Button size="large" variant="contained" color="secondary" onClick={() => navigate('/packages?tripType=International')}>
+                    International Booking
                   </Button>
-                  <Button size="large" variant="outlined" sx={{ color: '#fff', borderColor: 'rgba(255,255,255,0.5)' }} onClick={() => navigate('/offers')}>
-                    See Offers
+                  <Button size="large" variant="outlined" sx={{ color: '#fff', borderColor: 'rgba(255,255,255,0.5)' }} onClick={() => navigate('/packages?tripType=Domestic')}>
+                    Domestic Booking
                   </Button>
                 </Stack>
               </motion.div>

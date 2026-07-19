@@ -67,4 +67,64 @@
       { "day": 6, "title": "Machu Picchu", "detail": "Sunrise arrival at the Sun Gate, guided site tour." },
       { "day": 7, "title": "Departure", "detail": "Train back to Cusco, transfer to airport." }
     ] }
+  ,
+  {
+    "id": "p9",
+    "title": "Kerala Backwaters & Beaches",
+    "destinationId": "d9",
+    "location": "Kerala, India",
+    "category": "Beach",
+    "duration": 5,
+    "price": 980,
+    "rating": 4.7,
+    "reviewCount": 126,
+    "featured": true,
+    "trending": false,
+    "tripType": "Domestic",
+    "images": [
+      "https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?w=1200&q=80",
+      "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=1200&q=80"
+    ],
+    "shortDescription": "Houseboats, heritage stays, and calm coastal evenings.",
+    "description": "Five relaxing days across Alleppey, Kumarakom, and Varkala with houseboat stays, Ayurvedic treatments, and sunset walks by the sea.",
+    "included": ["4 nights heritage stay", "Houseboat cruise", "Airport transfers", "Breakfast daily"],
+    "excluded": ["Flights", "Lunches & dinners", "Personal expenses"],
+    "tourPlan": [
+      { "day": 1, "title": "Arrival in Kochi", "detail": "Check-in and evening harbor walk." },
+      { "day": 2, "title": "Alleppey Houseboat", "detail": "Cruise through backwaters and local village stops." },
+      { "day": 3, "title": "Kumarakom", "detail": "Bird sanctuary visit and spa afternoon." },
+      { "day": 4, "title": "Varkala", "detail": "Cliffside views and beach time." },
+      { "day": 5, "title": "Departure", "detail": "Transfer to the airport." }
+    ]
+  },
+  {
+    "id": "p10",
+    "title": "Rajasthan Royal Trails",
+    "destinationId": "d10",
+    "location": "Jaipur, India",
+    "category": "Culture",
+    "duration": 6,
+    "price": 1180,
+    "rating": 4.8,
+    "reviewCount": 142,
+    "featured": false,
+    "trending": true,
+    "tripType": "Domestic",
+    "images": [
+      "https://images.unsplash.com/photo-1539650116574-75c0c6d8f7f7?w=1200&q=80",
+      "https://images.unsplash.com/photo-1516483638261-f4dbaf036963?w=1200&q=80"
+    ],
+    "shortDescription": "Palaces, forts, and desert sunsets in royal Rajasthan.",
+    "description": "Six days exploring Jaipur, Jodhpur, and Jaisalmer with heritage stays, local guides, and camel safaris under the dunes.",
+    "included": ["5 nights boutique hotel", "Guided city tours", "Camel safari", "Breakfast daily"],
+    "excluded": ["Flights", "Lunches & dinners", "Personal expenses"],
+    "tourPlan": [
+      { "day": 1, "title": "Arrival in Jaipur", "detail": "City palace check-in and evening market stroll." },
+      { "day": 2, "title": "Amber Fort", "detail": "Elephant or jeep ride and heritage lunch." },
+      { "day": 3, "title": "Jodhpur", "detail": "Mehrangarh Fort visit and local cuisine tasting." },
+      { "day": 4, "title": "Jaisalmer", "detail": "Desert camp check-in and folk music evening." },
+      { "day": 5, "title": "Desert Safari", "detail": "Camel ride and sunrise over the dunes." },
+      { "day": 6, "title": "Departure", "detail": "Transfer to the airport." }
+    ]
+  }
 ]
