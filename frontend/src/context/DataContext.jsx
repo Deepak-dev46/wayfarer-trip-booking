@@ -1,5 +1,5 @@
 import { createContext, useCallback, useContext, useEffect, useState } from 'react';
-import { mockApi } from '../services/mockApi';
+import { packageApi, offerApi, bookingApi, contactApi, userApi, destinationApi, reviewApi } from '../services/api';
 
 const DataContext = createContext(null);
 
@@ -15,22 +15,22 @@ export function DataProvider({ children }) {
 
   const refreshAll = useCallback(async () => {
     setLoading(true);
-    const [pk, of, de, rv, us, bk, ct] = await Promise.all([
-      mockApi.getPackages(),
-      mockApi.getOffers(),
-      mockApi.getDestinations(),
-      mockApi.getReviews(),
-      mockApi.getUsers(),
-      mockApi.getBookings(),
-      mockApi.getContacts(),
+    const [pkRes, ofRes, deRes, rvRes, usRes, bkRes, ctRes] = await Promise.all([
+      packageApi.getPackages(),
+      offerApi.getOffers(),
+      destinationApi.getDestinations(),
+      reviewApi.getReviews(),
+      userApi.getUser(),
+      bookingApi.getBookings(),
+      contactApi.getContacts(),
     ]);
-    setPackages(pk);
-    setOffers(of);
-    setDestinations(de);
-    setReviews(rv);
-    setUsers(us);
-    setBookings(bk);
-    setContacts(ct);
+    setPackages(pkRes.data);
+    setOffers(ofRes.data);
+    setDestinations(deRes.data);
+    setReviews(rvRes.data);
+    setUsers(usRes.data);
+    setBookings(bkRes.data);
+    setContacts(ctRes.data);
     setLoading(false);
   }, []);
 
@@ -40,71 +40,72 @@ export function DataProvider({ children }) {
 
   // ---- Packages ----
   const addPackage = async (pkg) => {
-    const created = await mockApi.createPackage(pkg);
+    const { data: created } = await packageApi.addPackage(pkg);
     setPackages((prev) => [created, ...prev]);
     return created;
   };
   const editPackage = async (id, updates) => {
-    const updated = await mockApi.updatePackage(id, updates);
-    setPackages((prev) => prev.map((p) => (p.id === id ? updated : p)));
+    const { data: updated } = await packageApi.updatePackage(id, updates);
+    setPackages((prev) => prev.map((p) => (String(p.id) === String(id) ? updated : p)));
     return updated;
   };
   const removePackage = async (id) => {
-    await mockApi.deletePackage(id);
-    setPackages((prev) => prev.filter((p) => p.id !== id));
+    await packageApi.deletePackage(id);
+    setPackages((prev) => prev.filter((p) => String(p.id) !== String(id)));
   };
 
   // ---- Offers ----
   const addOffer = async (offer) => {
-    const created = await mockApi.createOffer(offer);
+    const { data: created } = await offerApi.addOffer(offer);
     setOffers((prev) => [created, ...prev]);
     return created;
   };
   const editOffer = async (id, updates) => {
-    const updated = await mockApi.updateOffer(id, updates);
-    setOffers((prev) => prev.map((o) => (o.id === id ? updated : o)));
+    const { data: updated } = await offerApi.updateOffer(id, updates);
+    setOffers((prev) => prev.map((o) => (String(o.id) === String(id) ? updated : o)));
     return updated;
   };
   const removeOffer = async (id) => {
-    await mockApi.deleteOffer(id);
-    setOffers((prev) => prev.filter((o) => o.id !== id));
+    await offerApi.deleteOffer(id);
+    setOffers((prev) => prev.filter((o) => String(o.id) !== String(id)));
   };
 
   // ---- Bookings ----
   const addBooking = async (booking) => {
-    const created = await mockApi.createBooking(booking);
+    const { data: created } = await bookingApi.addBookings(booking);
     setBookings((prev) => [created, ...prev]);
     return created;
   };
   const setBookingStatus = async (id, status) => {
-    const updated = await mockApi.updateBookingStatus(id, status);
-    setBookings((prev) => prev.map((b) => (b.id === id ? updated : b)));
+    const { data: updated } = await bookingApi.updateBookings(id, { status });
+    setBookings((prev) => prev.map((b) => (String(b.id) === String(id) ? updated : b)));
     return updated;
   };
   const removeBooking = async (id) => {
-    await mockApi.deleteBooking(id);
-    setBookings((prev) => prev.filter((b) => b.id !== id));
+    await bookingApi.deleteBooking(id);
+    setBookings((prev) => prev.filter((b) => String(b.id) !== String(id)));
   };
 
   // ---- Contacts ----
   const addContact = async (contact) => {
-    const created = await mockApi.createContact(contact);
+    const { data: created } = await contactApi.addContact(contact);
     setContacts((prev) => [created, ...prev]);
     return created;
   };
   const markContactRead = async (id) => {
-    await mockApi.markContactRead(id);
-    setContacts((prev) => prev.map((c) => (c.id === id ? { ...c, read: true } : c)));
+    const { data: updated } = await contactApi.updateContact(id, {});
+    setContacts((prev) => prev.map((c) => (String(c.id) === String(id) ? updated : c)));
+    return updated;
   };
   const removeContact = async (id) => {
-    await mockApi.deleteContact(id);
-    setContacts((prev) => prev.filter((c) => c.id !== id));
+    await contactApi.deleteContact(id);
+    setContacts((prev) => prev.filter((c) => String(c.id) !== String(id)));
   };
 
   // ---- Users ----
   const removeUser = async (id) => {
-    await mockApi.deleteUser(id);
-    setUsers((prev) => prev.filter((u) => u.id !== id));
+    await userApi.deleteUser(id);
+    setUsers((prev) => prev.filter((u) => String(u.id) !== String(id)));
   };
 
   const value = {

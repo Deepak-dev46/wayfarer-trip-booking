@@ -16,7 +16,7 @@ import 'swiper/css/pagination';
 import { motion } from 'framer-motion';
 
 import { useData } from '../context/DataContext';
-import { mockApi } from '../services/mockApi';
+import { packageApi } from '../services/api';
 import ReviewCard from '../components/ReviewCard';
 import { formatPrice } from '../utils/formatters';
 
@@ -31,9 +31,12 @@ export default function PackageDetails() {
     let mounted = true;
     (async () => {
       setFetching(true);
-      const found = packages.find((p) => p.id === id) || (await mockApi.getPackageById(id));
+      const found = packages.find((p) => String(p.id) === String(id));
+      const pkgResult = found
+        ? found
+        : await packageApi.getPackageById(id).then((res) => res.data).catch(() => null);
       if (mounted) {
-        setPkg(found);
+        setPkg(pkgResult);
         setFetching(false);
       }
     })();

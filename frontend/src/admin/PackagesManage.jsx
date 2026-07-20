@@ -16,17 +16,24 @@ const emptyDefaults = {
   title: '', destinationId: '', location: '', category: 'Adventure', duration: 5, price: 1000,
   description: '', shortDescription: '', images: '', rating: 4.5,
 };
+const emptyTourPlanRow = { day: 1, title: '', detail: '' };
 
 export default function PackagesManage() {
   const { packages, addPackage, editPackage, removePackage } = useData();
   const [dialogOpen, setDialogOpen] = useState(false);
   const [viewPkg, setViewPkg] = useState(null);
   const [editing, setEditing] = useState(null);
+  const [includedText, setIncludedText] = useState('');
+  const [excludedText, setExcludedText] = useState('');
+  const [tourPlan, setTourPlan] = useState([emptyTourPlanRow]);
   const { register, handleSubmit, reset, formState: { errors } } = useForm({ defaultValues: emptyDefaults });
 
   const openCreate = () => {
     setEditing(null);
     reset(emptyDefaults);
+    setIncludedText('');
+    setExcludedText('');
+    setTourPlan([emptyTourPlanRow]);
     setDialogOpen(true);
   };
 
@@ -37,8 +44,29 @@ export default function PackagesManage() {
       duration: pkg.duration, price: pkg.price, description: pkg.description, shortDescription: pkg.shortDescription,
       images: (pkg.images || []).join(', '), rating: pkg.rating,
     });
+    setIncludedText((pkg.included || []).join('\n'));
+    setExcludedText((pkg.excluded || []).join('\n'));
+    setTourPlan((pkg.tourPlan || []).map((item) => ({
+      day: item.day || 1,
+      title: item.title || '',
+      detail: item.detail || '',
+    })).concat([{ ...emptyTourPlanRow }]));
     setDialogOpen(true);
   };
+
+  const updateTourPlanRow = (index, key, value) => {
+    setTourPlan((prev) => prev.map((row, idx) => idx === index ? { ...row, [key]: value } : row));
+  };
+
+  const addTourPlanRow = () => {
+    setTourPlan((prev) => [...prev, { ...emptyTourPlanRow, day: prev.length + 1 }]);
+  };
+
+  const removeTourPlanRow = (index) => {
+    setTourPlan((prev) => prev.filter((_, idx) => idx !== index).map((row, idx) => ({ ...row, day: idx + 1 })));
+  };
+
+  const normalizeList = (text) => text.split('\n').map((item) => item.trim()).filter(Boolean);
 
   const onSubmit = async (data) => {
     const payload = {
@@ -47,9 +75,15 @@ export default function PackagesManage() {
       price: Number(data.price),
       rating: Number(data.rating),
       images: data.images.split(',').map((s) => s.trim()).filter(Boolean),
-      included: editing?.included || ['Accommodation', 'Daily breakfast', 'Airport transfers'],
-      excluded: editing?.excluded || ['International flights', 'Travel insurance'],
-      tourPlan: editing?.tourPlan || [],
+      included: normalizeList(includedText),
+      excluded: normalizeList(excludedText),
+      tourPlan: tourPlan
+        .map((item, idx) => ({
+          day: Number(item.day) || idx + 1,
+          title: item.title.trim(),
+          detail: item.detail.trim(),
+        }))
+        .filter((item) => item.title || item.detail),
       trending: editing?.trending || false,
       featured: editing?.featured || false,
       reviewCount: editing?.reviewCount || 0,
@@ -157,6 +191,74 @@ export default function PackagesManage() {
               <Grid item xs={12}>
                 <TextField fullWidth label="Image URLs (comma-separated)" {...register('images')} />
               </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  fullWidth
+                  multiline
+                  rows={3}
+                  value={includedText}
+                  onChange={(e) => setIncludedText(e.target.value)}
+                  label="Included (one item per line)"
+                  placeholder="Accommodation\nDaily breakfast\nAirport transfers"
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  fullWidth
+                  multiline
+                  rows={3}
+                  value={excludedText}
+                  onChange={(e) => setExcludedText(e.target.value)}
+                  label="Excluded (one item per line)"
+                  placeholder="International flights\nTravel insurance"
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <Typography variant="subtitle1" fontWeight={700} mb={1}>Tour Plan</Typography>
+                <Stack spacing={2}>
+                  {tourPlan.map((item, index) => (
+                    <Paper key={`tour-plan-${index}`} elevation={0} sx={{ p: 2, border: '1px solid', borderColor: 'divider' }}>
+                      <Grid container spacing={2} alignItems="center">
+                        <Grid item xs={12} sm={2}>
+                          <TextField
+                            fullWidth
+                            type="number"
+                            label="Day"
+                            value={item.day}
+                            onChange={(e) => updateTourPlanRow(index, 'day', Number(e.target.value) || 1)}
+                          />
+                        </Grid>
+                        <Grid item xs={12} sm={10}>
+                          <TextField
+                            fullWidth
+                            label="Title"
+                            value={item.title}
+                            onChange={(e) => updateTourPlanRow(index, 'title', e.target.value)}
+                          />
+                        </Grid>
+                        <Grid item xs={12}>
+                          <TextField
+                            fullWidth
+                            multiline
+                            rows={2}
+                            label="Details"
+                            value={item.detail}
+                            onChange={(e) => updateTourPlanRow(index, 'detail', e.target.value)}
+                          />
+                        </Grid>
+                        <Grid item xs={12}>
+                          <Stack direction="row" spacing={1} justifyContent="flex-end">
+                            <Button size="small" color="error" onClick={() => removeTourPlanRow(index)} disabled={tourPlan.length === 1}>
+                              Remove
+                            </Button>
+                          </Stack>
+                        </Grid>
+                      </Grid>
+                    </Paper>
+                  ))}
+                  <Button size="small" variant="outlined" onClick={addTourPlanRow}>Add Day</Button>
+                </Stack>
+              </Grid>
             </Grid>
           </DialogContent>
           <DialogActions sx={{ p: 2.5 }}>
@@ -174,10 +276,31 @@ export default function PackagesManage() {
             <DialogContent dividers>
               <Box component="img" src={viewPkg.images?.[0]} sx={{ width: '100%', height: 200, objectFit: 'cover', borderRadius: 2, mb: 2 }} />
               <Typography variant="body2" color="text.secondary" mb={2}>{viewPkg.description}</Typography>
-              <Stack direction="row" spacing={2}>
+              <Stack direction="row" spacing={2} mb={2} flexWrap="wrap">
                 <Chip label={viewPkg.category} size="small" />
                 <Chip label={`${viewPkg.duration} days`} size="small" />
                 <Chip label={formatPrice(viewPkg.price)} size="small" color="secondary" />
+              </Stack>
+              <Typography variant="subtitle2" mb={1}>Included</Typography>
+              <Stack component="ul" spacing={0.5} sx={{ pl: 2, mb: 2 }}>
+                {(viewPkg.included || []).map((item, i) => (
+                  <Typography component="li" key={i} variant="body2">• {item}</Typography>
+                ))}
+              </Stack>
+              <Typography variant="subtitle2" mb={1}>Excluded</Typography>
+              <Stack component="ul" spacing={0.5} sx={{ pl: 2, mb: 2 }}>
+                {(viewPkg.excluded || []).map((item, i) => (
+                  <Typography component="li" key={i} variant="body2">• {item}</Typography>
+                ))}
+              </Stack>
+              <Typography variant="subtitle2" mb={1}>Tour Plan</Typography>
+              <Stack spacing={1}>
+                {(viewPkg.tourPlan || []).map((day) => (
+                  <Paper key={day.day} elevation={0} sx={{ p: 1.5, border: '1px solid', borderColor: 'divider' }}>
+                    <Typography variant="body2" fontWeight={700}>Day {day.day}: {day.title}</Typography>
+                    <Typography variant="body2" color="text.secondary">{day.detail}</Typography>
+                  </Paper>
+                ))}
               </Stack>
             </DialogContent>
             <DialogActions sx={{ p: 2 }}>
