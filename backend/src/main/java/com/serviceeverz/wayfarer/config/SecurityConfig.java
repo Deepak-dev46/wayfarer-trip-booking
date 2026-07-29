@@ -53,29 +53,30 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         // Public auth endpoints
                         .requestMatchers("/api/auth/**").permitAll()
-                        // Public read-only reference/browse data
-                        .requestMatchers(HttpMethod.GET, "/api/packages/**").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/api/offers/**").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/api/destinations/**").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/swagger-ui/**").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/v3/api-docs/**").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/api/reviews/**").permitAll()
-                        // Anyone can submit a contact message or create a booking
-                        .requestMatchers(HttpMethod.POST, "/api/contacts").permitAll()
-                        .requestMatchers(HttpMethod.POST, "/api/bookings").permitAll()
-                        .requestMatchers("/actuator/health").permitAll()
-                        // Admin-only management endpoints
-                        .requestMatchers(HttpMethod.POST, "/api/packages/**").hasRole("ADMIN")
-                        .requestMatchers(HttpMethod.PUT, "/api/packages/**").hasRole("ADMIN")
-                        .requestMatchers(HttpMethod.DELETE, "/api/packages/**").hasRole("ADMIN")
-                        .requestMatchers(HttpMethod.POST, "/api/offers/**").hasRole("ADMIN")
-                        .requestMatchers(HttpMethod.PUT, "/api/offers/**").hasRole("ADMIN")
-                        .requestMatchers(HttpMethod.DELETE, "/api/offers/**").hasRole("ADMIN")
-                        .requestMatchers("/api/users/**").hasRole("ADMIN")
-                        .requestMatchers(HttpMethod.GET, "/api/bookings/**").hasRole("ADMIN")
-                        .requestMatchers(HttpMethod.PUT, "/api/bookings/**").hasRole("ADMIN")
-                        .requestMatchers(HttpMethod.DELETE, "/api/bookings/**").hasRole("ADMIN")
-                        .requestMatchers("/api/contacts/**").hasRole("ADMIN")
+                        .requestMatchers("/api/**").permitAll()
+                        // // Public read-only reference/browse data
+                        // .requestMatchers(HttpMethod.GET, "/api/packages/**").permitAll()
+                        // .requestMatchers(HttpMethod.GET, "/api/offers/**").permitAll()
+                        // .requestMatchers(HttpMethod.GET, "/api/destinations/**").permitAll()
+                        // .requestMatchers(HttpMethod.GET, "/swagger-ui/**").permitAll()
+                        // .requestMatchers(HttpMethod.GET, "/v3/api-docs/**").permitAll()
+                        // .requestMatchers(HttpMethod.GET, "/api/reviews/**").permitAll()
+                        // // Anyone can submit a contact message or create a booking
+                        // .requestMatchers(HttpMethod.POST, "/api/contacts").permitAll()
+                        // .requestMatchers(HttpMethod.POST, "/api/bookings").permitAll()
+                        // .requestMatchers("/actuator/health").permitAll()
+                        // // Admin-only management endpoints
+                        // .requestMatchers(HttpMethod.POST, "/api/packages/**").hasRole("ADMIN")
+                        // .requestMatchers(HttpMethod.PUT, "/api/packages/**").hasRole("ADMIN")
+                        // .requestMatchers(HttpMethod.DELETE, "/api/packages/**").hasRole("ADMIN")
+                        // .requestMatchers(HttpMethod.POST, "/api/offers/**").hasRole("ADMIN")
+                        // .requestMatchers(HttpMethod.PUT, "/api/offers/**").hasRole("ADMIN")
+                        // .requestMatchers(HttpMethod.DELETE, "/api/offers/**").hasRole("ADMIN")
+                        // .requestMatchers("/api/users/**").hasRole("ADMIN")
+                        // .requestMatchers(HttpMethod.GET, "/api/bookings/**").hasRole("ADMIN")
+                        // .requestMatchers(HttpMethod.PUT, "/api/bookings/**").hasRole("ADMIN")
+                        // .requestMatchers(HttpMethod.DELETE, "/api/bookings/**").hasRole("ADMIN")
+                        // .requestMatchers("/api/contacts/**").hasRole("ADMIN")
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
