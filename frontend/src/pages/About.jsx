@@ -1,5 +1,6 @@
 import { Container, Grid, Typography, Box, Paper, Stack } from '@mui/material';
 import { motion } from 'framer-motion';
+import { useData } from '../context/DataContext';
 
 const values = [
   { title: 'Scout everything ourselves', text: 'No itinerary goes live until a member of our team has walked it, stayed in it, or eaten there.' },
@@ -15,6 +16,9 @@ const team = [
 ];
 
 export default function About() {
+  const { videos = [] } = useData();
+  const visibleVideos = videos.filter((video) => video.active !== false);
+
   return (
     <Box>
       <Box sx={{ background: 'linear-gradient(120deg, #0F3057, #4D9DE0)', py: 10 }}>
@@ -43,6 +47,38 @@ export default function About() {
             </Grid>
           ))}
         </Grid>
+
+        {visibleVideos.length > 0 && (
+          <Box sx={{ mb: 8 }}>
+            <Typography variant="h4" sx={{ mb: 4, textAlign: 'center' }}>Previous Works</Typography>
+            <Grid container spacing={3}>
+              {visibleVideos.map((video, index) => (
+                <Grid item xs={12} md={6} key={video.id}>
+                  <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: index * 0.08 }}>
+                    <Paper elevation={0} sx={{ p: 2.5, border: '1px solid', borderColor: 'divider' }}>
+                      <Box sx={{ position: 'relative', borderRadius: 2, overflow: 'hidden', mb: 2 }}>
+                        {video.thumbnailUrl ? (
+                          <Box component="img" src={video.thumbnailUrl} alt={video.title} sx={{ width: '100%', height: 220, objectFit: 'cover' }} />
+                        ) : (
+                          <Box sx={{ width: '100%', height: 220, bgcolor: 'grey.100', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'text.secondary' }}>
+                            Video Preview
+                          </Box>
+                        )}
+                      </Box>
+                      <Typography variant="h6" fontWeight={700} mb={1}>{video.title}</Typography>
+                      <Typography variant="body2" color="text.secondary" mb={2}>{video.description}</Typography>
+                      <Box sx={{ display: 'flex', justifyContent: 'flex-start' }}>
+                        <Button component="a" href={video.videoUrl} target="_blank" rel="noreferrer" variant="outlined" color="secondary">
+                          Watch Video
+                        </Button>
+                      </Box>
+                    </Paper>
+                  </motion.div>
+                </Grid>
+              ))}
+            </Grid>
+          </Box>
+        )}
 
         <Typography variant="h4" sx={{ mb: 4, textAlign: 'center' }}>Meet the Team</Typography>
         <Grid container spacing={3}>

@@ -33,6 +33,8 @@ export default function BookingConfirmation() {
             <Row label="Package" value={booking.packageTitle} />
             <Row label="Traveler" value={booking.name} />
             <Row label="Travel Date" value={formatDate(booking.travelDate)} />
+            <Row label="Trip Type" value={booking.groupType} />
+            <Row label="Number of Days" value={booking.days} />
             <Row label="Travelers" value={`${booking.adults} adult(s), ${booking.children} child(ren)`} />
             <Row label="Estimated Total" value={formatPrice(booking.totalPrice)} bold />
             <Row label="Status" value={booking.status} />

@@ -1,5 +1,5 @@
 import { createContext, useCallback, useContext, useEffect, useState } from 'react';
-import { packageApi, offerApi, bookingApi, contactApi, userApi, destinationApi, reviewApi } from '../services/api';
+import { packageApi, offerApi, bookingApi, contactApi, userApi, destinationApi, reviewApi, videoApi } from '../services/api';
 
 const DataContext = createContext(null);
 
@@ -8,6 +8,7 @@ export function DataProvider({ children }) {
   const [offers, setOffers] = useState([]);
   const [destinations, setDestinations] = useState([]);
   const [reviews, setReviews] = useState([]);
+  const [videos, setVideos] = useState([]);
   const [users, setUsers] = useState([]);
   const [bookings, setBookings] = useState([]);
   const [contacts, setContacts] = useState([]);
@@ -15,11 +16,12 @@ export function DataProvider({ children }) {
 
   const refreshAll = useCallback(async () => {
     setLoading(true);
-    const [pkRes, ofRes, deRes, rvRes, usRes, bkRes, ctRes] = await Promise.all([
+    const [pkRes, ofRes, deRes, rvRes, viRes, usRes, bkRes, ctRes] = await Promise.all([
       packageApi.getPackages(),
       offerApi.getOffers(),
       destinationApi.getDestinations(),
       reviewApi.getReviews(),
+      videoApi.getVideos(),
       userApi.getUser(),
       bookingApi.getBookings(),
       contactApi.getContacts(),
@@ -28,6 +30,7 @@ export function DataProvider({ children }) {
     setOffers(ofRes.data);
     setDestinations(deRes.data);
     setReviews(rvRes.data);
+    setVideos(viRes.data);
     setUsers(usRes.data);
     setBookings(bkRes.data);
     setContacts(ctRes.data);
@@ -102,6 +105,22 @@ export function DataProvider({ children }) {
     setContacts((prev) => prev.filter((c) => String(c.id) !== String(id)));
   };
 
+  // ---- Videos ----
+  const addVideo = async (video) => {
+    const { data: created } = await videoApi.addVideo(video);
+    setVideos((prev) => [created, ...prev]);
+    return created;
+  };
+  const editVideo = async (id, updates) => {
+    const { data: updated } = await videoApi.updateVideo(id, updates);
+    setVideos((prev) => prev.map((v) => (String(v.id) === String(id) ? updated : v)));
+    return updated;
+  };
+  const removeVideo = async (id) => {
+    await videoApi.deleteVideo(id);
+    setVideos((prev) => prev.filter((v) => String(v.id) !== String(id)));
+  };
+
   // ---- Users ----
   const removeUser = async (id) => {
     await userApi.deleteUser(id);
@@ -114,6 +133,7 @@ export function DataProvider({ children }) {
     offers,
     destinations,
     reviews,
+    videos,
     users,
     bookings,
     contacts,
@@ -124,6 +144,9 @@ export function DataProvider({ children }) {
     addOffer,
     editOffer,
     removeOffer,
+    addVideo,
+    editVideo,
+    removeVideo,
     addBooking,
     setBookingStatus,
     removeBooking,

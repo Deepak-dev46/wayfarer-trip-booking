@@ -33,6 +33,11 @@ public class Booking {
 
     private Integer children;
 
+    @Column(name = "group_type")
+    private String groupType;
+
+    private Integer days;
+
     @Column(name = "travel_date")
     private LocalDate travelDate;
 
@@ -113,6 +118,22 @@ public class Booking {
 
     public void setChildren(Integer children) {
         this.children = children;
+    }
+
+    public String getGroupType() {
+        return groupType;
+    }
+
+    public void setGroupType(String groupType) {
+        this.groupType = groupType;
+    }
+
+    public Integer getDays() {
+        return days;
+    }
+
+    public void setDays(Integer days) {
+        this.days = days;
     }
 
     public LocalDate getTravelDate() {

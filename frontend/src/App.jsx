@@ -21,6 +21,7 @@ import AdminLogin from './admin/AdminLogin';
 import Dashboard from './admin/Dashboard';
 import PackagesManage from './admin/PackagesManage';
 import OffersManage from './admin/OffersManage';
+import VideosManage from './admin/VideosManage';
 import BookingsManage from './admin/BookingsManage';
 import ContactsManage from './admin/ContactsManage';
 import UsersManage from './admin/UsersManage';
@@ -44,6 +45,7 @@ export default function App() {
         <Route path="dashboard" element={<Dashboard />} />
         <Route path="packages" element={<PackagesManage />} />
         <Route path="offers" element={<OffersManage />} />
+        <Route path="videos" element={<VideosManage />} />
         <Route path="bookings" element={<BookingsManage />} />
         <Route path="contacts" element={<ContactsManage />} />
         <Route path="users" element={<UsersManage />} />

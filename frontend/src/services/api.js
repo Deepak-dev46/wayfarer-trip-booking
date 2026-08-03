@@ -68,6 +68,14 @@ export const reviewApi = {
   getReviews: () => apiClient.get('/api/reviews'),
 };
 
+export const videoApi = {
+  getVideos: () => apiClient.get('/api/videos'),
+  getVideoById: (id) => apiClient.get(`/api/videos/${id}`),
+  updateVideo: (id, body) => apiClient.put(`/api/videos/${id}`, body),
+  deleteVideo: (id) => apiClient.delete(`/api/videos/${id}`),
+  addVideo: (body) => apiClient.post('/api/videos', body),
+};
+
 export const destinationApi = {
   getDestinations: () => apiClient.get('/api/destinations'),
   getDestinationById: (id) => apiClient.get(`/api/destinations/${id}`),

@@ -24,6 +24,8 @@ export default function Booking() {
       phone: user?.phone || '',
       adults: 2,
       children: 0,
+      groupType: 'Couple',
+      days: 5,
       travelDate: '',
       packageId: preselected,
       specialRequests: '',
@@ -45,6 +47,7 @@ export default function Booking() {
       packageTitle: pkg?.title || 'Custom Package',
       adults: Number(data.adults),
       children: Number(data.children),
+      days: Number(data.days),
       totalPrice: total,
     });
     setSubmitting(false);
@@ -92,6 +95,16 @@ export default function Booking() {
               </Grid>
               <Grid item xs={6} sm={3}>
                 <TextField fullWidth type="number" label="Children" inputProps={{ min: 0 }} {...register('children', { min: 0 })} />
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <TextField select fullWidth label="Trip Type" {...register('groupType', { required: 'Please select a trip type' })} error={!!errors.groupType} helperText={errors.groupType?.message}>
+                  <MenuItem value="Couple">Couple</MenuItem>
+                  <MenuItem value="Bachelor">Bachelor</MenuItem>
+                  <MenuItem value="Family">Family</MenuItem>
+                </TextField>
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <TextField fullWidth type="number" label="Number of Days" inputProps={{ min: 1 }} {...register('days', { required: 'Please enter number of days', min: 1 })} error={!!errors.days} helperText={errors.days?.message} />
               </Grid>
               <Grid item xs={12} sm={6}>
                 <TextField
