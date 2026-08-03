@@ -2,9 +2,11 @@ import { useEffect, useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import {
   Box, Container, Typography, Button, Grid, TextField, MenuItem, Stack, Paper, InputAdornment,
+  Dialog, DialogContent, DialogActions, IconButton,
 } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import PlaceIcon from '@mui/icons-material/PlaceOutlined';
+import CloseIcon from '@mui/icons-material/Close';
 import VerifiedIcon from '@mui/icons-material/VerifiedOutlined';
 import SupportAgentIcon from '@mui/icons-material/SupportAgentOutlined';
 import PriceCheckIcon from '@mui/icons-material/PriceCheckOutlined';
@@ -41,10 +43,20 @@ export default function Home() {
   const { packages, offers, destinations, reviews, loading } = useData();
   const navigate = useNavigate();
   const [search, setSearch] = useState({ destination: '', category: '' });
+  const [popupOpen, setPopupOpen] = useState(false);
+  const [activePopupOffer, setActivePopupOffer] = useState(null);
 
   const featured = packages.filter((p) => p.featured).slice(0, 4);
   const trending = packages.filter((p) => p.trending).slice(0, 4);
   const topReviews = reviews.slice(0, 3);
+
+  useEffect(() => {
+    const activeOffer = offers.find((offer) => offer.popupEnabled && isOfferActive(offer));
+    if (activeOffer) {
+      setActivePopupOffer(activeOffer);
+      setPopupOpen(true);
+    }
+  }, [offers]);
 
   const handleSearch = (e) => {
     e.preventDefault();
@@ -53,8 +65,53 @@ export default function Home() {
     if (search.category) params.set('category', search.category);
     navigate(`/packages?${params.toString()}`);
   };
+
   return (
     <Box>
+      <style>{`
+        @keyframes confettiFall {
+          0% { opacity: 0; transform: translate(-50%, -50%) scale(0.5) rotate(0deg); }
+          15% { opacity: 1; }
+          100% { opacity: 0; transform: translate(-50%, 180px) scale(1) rotate(360deg); }
+        }
+        @keyframes confettiPulse {
+          0% { transform: scale(0.2); opacity: 0.9; }
+          100% { transform: scale(2.6); opacity: 0; }
+        }
+      `}</style>
+      <Dialog open={popupOpen} onClose={() => setPopupOpen(false)} maxWidth="sm" fullWidth>
+        <DialogContent sx={{ position: 'relative', p: { xs: 3, md: 4 }, textAlign: 'center', background: 'linear-gradient(135deg, #fff6d8 0%, #ffe1b9 100%)', overflow: 'visible' }}>
+          <ConfettiBurst active={popupOpen} />
+          <IconButton
+            aria-label="close"
+            onClick={() => setPopupOpen(false)}
+            sx={{ position: 'absolute', top: 8, right: 8 }}
+          >
+            <CloseIcon />
+          </IconButton>
+          <Typography variant="h4" sx={{ fontWeight: 800, color: 'primary.main', mb: 1 }}>🎉 Special Celebration Offer 🎉</Typography>
+          <Typography variant="h6" sx={{ fontWeight: 700, mb: 1 }}>{activePopupOffer?.title || 'Limited-time celebration deal'}</Typography>
+          <Typography color="text.secondary" sx={{ mb: 2 }}>
+            {activePopupOffer?.description || 'Our admin can update this popup anytime from the Offers section.'}
+          </Typography>
+          <Box sx={{ display: 'flex', justifyContent: 'center', gap: 1, mb: 2, fontSize: 28 }}>
+            <span>🎊</span><span>✨</span><span>🎁</span><span>🎉</span><span>✨</span>
+          </Box>
+          <Typography variant="body1" fontWeight={700} color="secondary.dark" mb={1}>
+            {activePopupOffer?.discount || 'Exclusive perks waiting for you'}
+          </Typography>
+        </DialogContent>
+        <DialogActions sx={{ justifyContent: 'center', pb: 3 }}>
+          <Button variant="contained" color="secondary" onClick={() => {
+            setPopupOpen(false);
+            if (activePopupOffer?.packageId) navigate(`/packages/${activePopupOffer.packageId}`);
+            else navigate('/offers');
+          }}>
+            View Offer
+          </Button>
+        </DialogActions>
+      </Dialog>
+
       {/* HERO */}
       <Box
         sx={{
@@ -281,6 +338,68 @@ export default function Home() {
           </Button>
         </Paper>
       </Container>
+    </Box>
+  );
+}
+
+function isOfferActive(offer) {
+  if (!offer?.startDate && !offer?.endDate) return true;
+  const now = new Date();
+  const start = offer.startDate ? new Date(`${offer.startDate}T00:00:00`) : null;
+  const end = offer.endDate ? new Date(`${offer.endDate}T23:59:59`) : null;
+  if (start && now < start) return false;
+  if (end && now > end) return false;
+  return true;
+}
+
+function ConfettiBurst({ active }) {
+  const [pieces, setPieces] = useState([]);
+
+  useEffect(() => {
+    if (!active) return;
+
+    const burst = Array.from({ length: 80 }, (_, index) => ({
+      id: index,
+      left: `${Math.random() * 100}%`,
+      top: `${Math.random() * 100}%`,
+      delay: Math.random() * 0.15,
+      color: ['#ff6b6b', '#ffd166', '#06d6a0', '#4ecdc4', '#1e5f74', '#ff8fab'][index % 6],
+      rotate: Math.random() * 360,
+      size: 8 + Math.random() * 12,
+      duration: 1.4 + Math.random() * 0.8,
+      driftX: -220 + Math.random() * 440,
+      driftY: -220 + Math.random() * 440,
+    }));
+
+    setPieces(burst);
+    const timer = window.setTimeout(() => setPieces([]), 2400);
+    return () => window.clearTimeout(timer);
+  }, [active]);
+
+  if (!active) return null;
+
+  return (
+    <Box sx={{ position: 'fixed', inset: 0, overflow: 'hidden', pointerEvents: 'none', zIndex: 1301 }}>
+      {pieces.map((piece) => (
+        <Box
+          key={piece.id}
+          sx={{
+            position: 'absolute', left: piece.left, top: piece.top,
+            width: piece.size, height: piece.size * 0.7,
+            background: piece.color, borderRadius: 999,
+            opacity: 0.95,
+            transform: `translate(-50%, -50%) rotate(${piece.rotate}deg)`,
+            animation: `confettiFall ${piece.duration}s cubic-bezier(.17,.67,.3,1) forwards`,
+            animationDelay: `${piece.delay}s`,
+            boxShadow: '0 0 10px rgba(0,0,0,0.16)',
+          }}
+        />
+      ))}
+      <Box sx={{
+        position: 'absolute', inset: 0,
+        background: 'radial-gradient(circle at center, rgba(255,255,255,0.55) 0%, rgba(255,255,255,0.1) 30%, rgba(255,255,255,0) 65%)',
+        animation: 'confettiPulse 1s ease-out forwards',
+      }} />
     </Box>
   );
 }

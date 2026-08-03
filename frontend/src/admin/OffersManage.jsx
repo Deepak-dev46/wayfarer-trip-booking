@@ -1,9 +1,9 @@
 import { useState } from 'react';
-import { useForm } from 'react-hook-form';
+import { useForm, Controller } from 'react-hook-form';
 import {
   Box, Typography, Button, Paper, Table, TableHead, TableRow, TableCell, TableBody,
   IconButton, Dialog, DialogTitle, DialogContent, DialogActions, TextField, Grid,
-  MenuItem, Avatar, Stack, Chip, Tooltip,
+  MenuItem, Avatar, Stack, Chip, Tooltip, FormControlLabel, Switch,
 } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 import EditIcon from '@mui/icons-material/EditOutlined';
@@ -12,14 +12,14 @@ import { useData } from '../context/DataContext';
 import { formatDate } from '../utils/formatters';
 
 const emptyDefaults = {
-  title: '', description: '', discount: '', bannerImage: '', startDate: '', endDate: '', packageId: '',
+  title: '', description: '', discount: '', bannerImage: '', startDate: '', endDate: '', packageId: '', popupEnabled: false,
 };
 
 export default function OffersManage() {
   const { offers, packages, addOffer, editOffer, removeOffer } = useData();
   const [dialogOpen, setDialogOpen] = useState(false);
   const [editing, setEditing] = useState(null);
-  const { register, handleSubmit, reset, formState: { errors } } = useForm({ defaultValues: emptyDefaults });
+  const { register, handleSubmit, reset, control, formState: { errors } } = useForm({ defaultValues: emptyDefaults });
 
   const openCreate = () => {
     setEditing(null);
@@ -61,6 +61,7 @@ export default function OffersManage() {
             <TableRow>
               <TableCell>Offer</TableCell>
               <TableCell>Discount</TableCell>
+              <TableCell>Popup</TableCell>
               <TableCell>Linked Package</TableCell>
               <TableCell>Valid</TableCell>
               <TableCell align="right">Actions</TableCell>
@@ -81,6 +82,7 @@ export default function OffersManage() {
                   </Stack>
                 </TableCell>
                 <TableCell><Chip label={o.discount} size="small" color="secondary" /></TableCell>
+                <TableCell>{o.popupEnabled ? <Chip label="Home popup" size="small" color="success" /> : <Typography variant="caption" color="text.secondary">Off</Typography>}</TableCell>
                 <TableCell>{packages.find((p) => p.id === o.packageId)?.title || '—'}</TableCell>
                 <TableCell>
                   <Typography variant="caption">{formatDate(o.startDate)} – {formatDate(o.endDate)}</Typography>
@@ -96,7 +98,7 @@ export default function OffersManage() {
               </TableRow>
             ))}
             {offers.length === 0 && (
-              <TableRow><TableCell colSpan={5} align="center">No offers yet.</TableCell></TableRow>
+              <TableRow><TableCell colSpan={6} align="center">No offers yet.</TableCell></TableRow>
             )}
           </TableBody>
         </Table>
@@ -130,6 +132,19 @@ export default function OffersManage() {
               </Grid>
               <Grid item xs={12}>
                 <TextField fullWidth label="Banner Image URL" {...register('bannerImage', { required: true })} error={!!errors.bannerImage} />
+              </Grid>
+              <Grid item xs={12}>
+                <Controller
+                  name="popupEnabled"
+                  control={control}
+                  defaultValue={false}
+                  render={({ field }) => (
+                    <FormControlLabel
+                      control={<Switch checked={!!field.value} onChange={(e) => field.onChange(e.target.checked)} />}
+                      label="Show this offer as a celebratory popup on the home page"
+                    />
+                  )}
+                />
               </Grid>
             </Grid>
           </DialogContent>

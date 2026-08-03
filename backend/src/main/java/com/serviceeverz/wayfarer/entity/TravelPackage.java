@@ -33,6 +33,9 @@ public class TravelPackage {
 
     private String category;
 
+    @Column(name = "trip_type")
+    private String tripType;
+
     private Integer duration;
 
     private Double price;
@@ -116,6 +119,14 @@ public class TravelPackage {
 
     public void setCategory(String category) {
         this.category = category;
+    }
+
+    public String getTripType() {
+        return tripType;
+    }
+
+    public void setTripType(String tripType) {
+        this.tripType = tripType;
     }
 
     public Integer getDuration() {

@@ -13,7 +13,7 @@ import { useData } from '../context/DataContext';
 import { categories, formatPrice } from '../utils/formatters';
 
 const emptyDefaults = {
-  title: '', destinationId: '', location: '', category: 'Adventure', duration: 5, price: 1000,
+  title: '', destinationId: '', location: '', category: 'Adventure', tripType: 'International', duration: 5, price: 1000,
   description: '', shortDescription: '', images: '', rating: 4.5,
 };
 const emptyTourPlanRow = { day: 1, title: '', detail: '' };
@@ -41,8 +41,8 @@ export default function PackagesManage() {
     setEditing(pkg);
     reset({
       title: pkg.title, destinationId: pkg.destinationId || '', location: pkg.location, category: pkg.category,
-      duration: pkg.duration, price: pkg.price, description: pkg.description, shortDescription: pkg.shortDescription,
-      images: (pkg.images || []).join(', '), rating: pkg.rating,
+      tripType: pkg.tripType || 'International', duration: pkg.duration, price: pkg.price,
+      description: pkg.description, shortDescription: pkg.shortDescription, images: (pkg.images || []).join(', '), rating: pkg.rating,
     });
     setIncludedText((pkg.included || []).join('\n'));
     setExcludedText((pkg.excluded || []).join('\n'));
@@ -113,6 +113,7 @@ export default function PackagesManage() {
           <TableHead>
             <TableRow>
               <TableCell>Package</TableCell>
+              <TableCell>Trip Type</TableCell>
               <TableCell>Category</TableCell>
               <TableCell>Duration</TableCell>
               <TableCell>Price</TableCell>
@@ -132,6 +133,7 @@ export default function PackagesManage() {
                     </Box>
                   </Stack>
                 </TableCell>
+                <TableCell><Chip label={p.tripType || 'International'} size="small" color="secondary" /></TableCell>
                 <TableCell><Chip label={p.category} size="small" /></TableCell>
                 <TableCell>{p.duration} days</TableCell>
                 <TableCell>{formatPrice(p.price)}</TableCell>
@@ -150,7 +152,7 @@ export default function PackagesManage() {
               </TableRow>
             ))}
             {packages.length === 0 && (
-              <TableRow><TableCell colSpan={6} align="center">No packages yet.</TableCell></TableRow>
+              <TableRow><TableCell colSpan={7} align="center">No packages yet.</TableCell></TableRow>
             )}
           </TableBody>
         </Table>
@@ -167,6 +169,12 @@ export default function PackagesManage() {
               </Grid>
               <Grid item xs={12} sm={6}>
                 <TextField fullWidth label="Location" {...register('location', { required: true })} error={!!errors.location} />
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <TextField select fullWidth label="Trip Type" {...register('tripType', { required: true })} defaultValue={emptyDefaults.tripType}>
+                  <MenuItem value="International">International</MenuItem>
+                  <MenuItem value="Domestic">Domestic</MenuItem>
+                </TextField>
               </Grid>
               <Grid item xs={12} sm={6}>
                 <TextField select fullWidth label="Category" {...register('category', { required: true })} defaultValue={emptyDefaults.category}>
@@ -277,6 +285,7 @@ export default function PackagesManage() {
               <Box component="img" src={viewPkg.images?.[0]} sx={{ width: '100%', height: 200, objectFit: 'cover', borderRadius: 2, mb: 2 }} />
               <Typography variant="body2" color="text.secondary" mb={2}>{viewPkg.description}</Typography>
               <Stack direction="row" spacing={2} mb={2} flexWrap="wrap">
+                <Chip label={viewPkg.tripType || 'International'} size="small" color="secondary" />
                 <Chip label={viewPkg.category} size="small" />
                 <Chip label={`${viewPkg.duration} days`} size="small" />
                 <Chip label={formatPrice(viewPkg.price)} size="small" color="secondary" />

@@ -37,6 +37,9 @@ public class PackageService {
         if (pkg.getReviewCount() == null) {
             pkg.setReviewCount(0);
         }
+        if (pkg.getTripType() == null || pkg.getTripType().isBlank()) {
+            pkg.setTripType("International");
+        }
         return packageRepository.save(pkg);
     }
 
@@ -47,6 +50,8 @@ public class PackageService {
         existing.setDestinationId(updates.getDestinationId());
         existing.setLocation(updates.getLocation());
         existing.setCategory(updates.getCategory());
+        existing.setTripType(updates.getTripType() == null || updates.getTripType().isBlank()
+                ? "International" : updates.getTripType());
         existing.setDuration(updates.getDuration());
         existing.setPrice(updates.getPrice());
         if (updates.getRating() != null) {

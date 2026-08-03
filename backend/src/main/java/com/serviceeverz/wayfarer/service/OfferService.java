@@ -43,6 +43,7 @@ public class OfferService {
         existing.setStartDate(updates.getStartDate());
         existing.setEndDate(updates.getEndDate());
         existing.setPackageId(updates.getPackageId());
+        existing.setPopupEnabled(updates.isPopupEnabled());
         return offerRepository.save(existing);
     }
 

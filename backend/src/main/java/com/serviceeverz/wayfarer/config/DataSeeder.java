@@ -120,6 +120,11 @@ public class DataSeeder implements CommandLineRunner {
             pkg.setDestinationId(destinationIdMap.get(text(node, "destinationId")));
             pkg.setLocation(text(node, "location"));
             pkg.setCategory(text(node, "category"));
+            String tripType = text(node, "tripType");
+            if (tripType == null || tripType.isBlank()) {
+                tripType = "International";
+            }
+            pkg.setTripType(tripType);
             pkg.setDuration(node.path("duration").asInt(0));
             pkg.setPrice(node.path("price").asDouble(0));
             pkg.setRating(node.path("rating").asDouble(4.5));
@@ -153,6 +158,7 @@ public class DataSeeder implements CommandLineRunner {
             offer.setStartDate(date(node, "startDate"));
             offer.setEndDate(date(node, "endDate"));
             offer.setPackageId(packageIdMap.get(text(node, "packageId")));
+            offer.setPopupEnabled(node.path("popupEnabled").asBoolean(false));
             offerRepository.save(offer);
         }
     }

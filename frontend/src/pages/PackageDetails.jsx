@@ -79,7 +79,8 @@ export default function PackageDetails() {
         <Grid item xs={12} md={8}>
           <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }}>
             <Stack direction="row" spacing={1} mb={1.5}>
-              <Chip label={pkg.category} color="secondary" size="small" />
+              <Chip label={pkg.tripType || 'International'} color="secondary" size="small" />
+              <Chip label={pkg.category} size="small" />
               {pkg.trending && <Chip label="Trending" size="small" variant="outlined" />}
             </Stack>
             <Typography variant="h2" sx={{ fontSize: { xs: 32, md: 42 }, mb: 1 }}>{pkg.title}</Typography>
@@ -162,6 +163,7 @@ export default function PackageDetails() {
             <Divider sx={{ mb: 2 }} />
             <Stack spacing={1} sx={{ mb: 3 }}>
               <Row label="Duration" value={`${pkg.duration} days`} />
+              <Row label="Trip Type" value={pkg.tripType || 'International'} />
               <Row label="Category" value={pkg.category} />
               <Row label="Rating" value={`${pkg.rating} / 5`} />
             </Stack>

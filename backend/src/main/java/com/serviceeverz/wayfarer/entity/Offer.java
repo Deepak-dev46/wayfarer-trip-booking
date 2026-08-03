@@ -37,6 +37,9 @@ public class Offer {
     @Column(name = "package_id")
     private Long packageId;
 
+    @Column(name = "popup_enabled")
+    private boolean popupEnabled = false;
+
     public Offer() {
     }
 
@@ -102,5 +105,13 @@ public class Offer {
 
     public void setPackageId(Long packageId) {
         this.packageId = packageId;
+    }
+
+    public boolean isPopupEnabled() {
+        return popupEnabled;
+    }
+
+    public void setPopupEnabled(boolean popupEnabled) {
+        this.popupEnabled = popupEnabled;
     }
 }

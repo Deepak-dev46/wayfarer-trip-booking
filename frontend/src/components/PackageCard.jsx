@@ -40,11 +40,19 @@ export default function PackageCard({ pkg, index = 0 }) {
               sx={{ height: '100%', width: '100%', objectFit: 'cover', transition: 'transform 0.5s ease', '&:hover': { transform: 'scale(1.08)' } }}
             />
           </Box>
-          <Chip
-            label={pkg.category}
-            size="small"
-            sx={{ position: 'absolute', top: 12, left: 12, bgcolor: 'rgba(255,255,255,0.9)', fontWeight: 700 }}
-          />
+          <Stack direction="row" spacing={1} sx={{ position: 'absolute', top: 12, left: 12 }}>
+            <Chip
+              label={pkg.tripType || 'International'}
+              size="small"
+              color="secondary"
+              sx={{ fontWeight: 700 }}
+            />
+            <Chip
+              label={pkg.category}
+              size="small"
+              sx={{ bgcolor: 'rgba(255,255,255,0.9)', fontWeight: 700 }}
+            />
+          </Stack>
           {pkg.trending && (
             <Chip
               label="Trending"
