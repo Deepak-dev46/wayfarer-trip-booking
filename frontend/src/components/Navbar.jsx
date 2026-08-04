@@ -77,9 +77,9 @@ export default function Navbar() {
           </Box>
 
           <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-            {/* <IconButton onClick={toggleMode} aria-label="Toggle dark mode">
+            <IconButton onClick={toggleMode} aria-label="Toggle dark mode" sx={{ mr: 0.5 }}>
               {mode === 'light' ? <DarkModeIcon /> : <LightModeIcon sx={{ color: '#F0BC8B' }} />}
-            </IconButton> */}
+            </IconButton>
 
             <Box sx={{ display: { xs: 'none', md: 'flex' }, alignItems: 'center', gap: 1 }}>
               {isAuthenticated ? (

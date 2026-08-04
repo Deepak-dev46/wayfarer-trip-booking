@@ -1,4 +1,4 @@
-import { Container, Grid, Typography, Box, Paper, Stack } from '@mui/material';
+import { Container, Grid, Typography, Box, Paper, Stack, Button } from '@mui/material';
 import { motion } from 'framer-motion';
 import { useData } from '../context/DataContext';
 
@@ -21,7 +21,7 @@ export default function About() {
 
   return (
     <Box>
-      <Box sx={{ background: 'linear-gradient(120deg, #0F3057, #4D9DE0)', py: 10 }}>
+      <Box sx={{ background: (theme) => theme.palette.mode === 'dark' ? 'linear-gradient(120deg, #07111f, #14324f)' : 'linear-gradient(120deg, #0F3057, #4D9DE0)', py: 10 }}>
         <Container maxWidth="md" sx={{ textAlign: 'center' }}>
           <Typography variant="overline" sx={{ color: '#F0BC8B', fontWeight: 700, letterSpacing: 3 }}>OUR STORY</Typography>
           <Typography variant="h2" sx={{ color: '#fff', fontSize: { xs: 32, md: 46 }, mb: 2 }}>

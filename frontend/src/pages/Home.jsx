@@ -39,12 +39,20 @@ const whyUs = [
   { icon: PublicIcon, title: 'Local Guides', text: 'We work with guides who live where you are visiting, not fly-in contractors.' },
 ];
 
+const heroImages = [
+  'https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=1600&q=60',
+  'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=1600&q=60',
+  'https://images.unsplash.com/photo-1501785888041-af3ef285b470?w=1600&q=60',
+  'https://images.unsplash.com/photo-1488646953014-85cb44e25828?w=1600&q=60',
+];
+
 export default function Home() {
   const { packages, offers, destinations, reviews, loading } = useData();
   const navigate = useNavigate();
   const [search, setSearch] = useState({ destination: '', category: '' });
   const [popupOpen, setPopupOpen] = useState(false);
   const [activePopupOffer, setActivePopupOffer] = useState(null);
+  const [heroIndex, setHeroIndex] = useState(0);
 
   const featured = packages.filter((p) => p.featured).slice(0, 4);
   const trending = packages.filter((p) => p.trending).slice(0, 4);
@@ -57,6 +65,14 @@ export default function Home() {
       setPopupOpen(true);
     }
   }, [offers]);
+
+  useEffect(() => {
+    const interval = window.setInterval(() => {
+      setHeroIndex((prev) => (prev + 1) % heroImages.length);
+    }, 5000);
+
+    return () => window.clearInterval(interval);
+  }, []);
 
   const handleSearch = (e) => {
     e.preventDefault();
@@ -80,7 +96,7 @@ export default function Home() {
         }
       `}</style>
       <Dialog open={popupOpen} onClose={() => setPopupOpen(false)} maxWidth="sm" fullWidth>
-        <DialogContent sx={{ position: 'relative', p: { xs: 3, md: 4 }, textAlign: 'center', background: 'linear-gradient(135deg, #fff6d8 0%, #ffe1b9 100%)', overflow: 'visible' }}>
+        <DialogContent sx={{ position: 'relative', p: { xs: 3, md: 4 }, textAlign: 'center', background: (theme) => theme.palette.mode === 'dark' ? 'linear-gradient(135deg, #1f2937 0%, #334155 100%)' : 'linear-gradient(135deg, #fff6d8 0%, #ffe1b9 100%)', overflow: 'visible', color: (theme) => theme.palette.mode === 'dark' ? '#f8fafc' : 'inherit' }}>
           <ConfettiBurst active={popupOpen} />
           <IconButton
             aria-label="close"
@@ -123,11 +139,16 @@ export default function Home() {
           background: 'linear-gradient(120deg, #0F3057 0%, #1B4A78 55%, #4D9DE0 130%)',
         }}
       >
-        <Box
-          sx={{
-            position: 'absolute', inset: 0, opacity: 0.25,
-            backgroundImage: 'url(https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=1600&q=60)',
-            backgroundSize: 'cover', backgroundPosition: 'center',
+        <motion.div
+          key={heroIndex}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 0.25 }}
+          transition={{ duration: 1.2, ease: 'easeInOut' }}
+          style={{
+            position: 'absolute', inset: 0,
+            backgroundImage: `url(${heroImages[heroIndex]})`,
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
           }}
         />
         <Container maxWidth="lg" sx={{ position: 'relative', zIndex: 1, py: 8 }}>
@@ -326,7 +347,7 @@ export default function Home() {
           elevation={0}
           sx={{
             p: { xs: 4, md: 6 }, borderRadius: 5, textAlign: 'center',
-            background: 'linear-gradient(120deg, #0F3057, #4D9DE0)',
+            background: (theme) => theme.palette.mode === 'dark' ? 'linear-gradient(120deg, #07111f, #14324f)' : 'linear-gradient(120deg, #0F3057, #4D9DE0)',
           }}
         >
           <Typography variant="h4" sx={{ color: '#fff', mb: 1 }}>Fare drops, before anyone else.</Typography>

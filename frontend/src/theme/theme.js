@@ -16,6 +16,62 @@ export const palette = {
   border: "rgba(255,255,255,0.4)",
 };
 
+const commonOverrides = {
+  MuiAppBar: {
+    styleOverrides: {
+      root: {
+        backdropFilter: "blur(20px)",
+        WebkitBackdropFilter: "blur(20px)",
+        boxShadow: "none",
+        borderBottom: "1px solid rgba(255,255,255,0.3)",
+      },
+    },
+  },
+  MuiPaper: {
+    styleOverrides: {
+      root: {
+        backdropFilter: "blur(20px)",
+        WebkitBackdropFilter: "blur(20px)",
+        backgroundImage: "none",
+      },
+    },
+  },
+  MuiCard: {
+    styleOverrides: {
+      root: {
+        borderRadius: 24,
+        border: "1px solid rgba(255,255,255,0.4)",
+        boxShadow: "0 8px 32px rgba(15, 23, 42, 0.08)",
+      },
+    },
+  },
+  MuiButton: {
+    styleOverrides: {
+      root: {
+        borderRadius: 999,
+        paddingLeft: 24,
+        paddingRight: 24,
+        transition: "all 0.3s ease",
+      },
+      contained: {
+        background: "linear-gradient(135deg,#1976D2,#42A5F5)",
+        boxShadow: "0 10px 25px rgba(25,118,210,0.25)",
+        "&:hover": {
+          background: "linear-gradient(135deg,#1565C0,#2196F3)",
+          transform: "translateY(-2px)",
+          boxShadow: "0 15px 30px rgba(25,118,210,0.35)",
+        },
+      },
+      outlined: {
+        borderColor: "#1976D2",
+        "&:hover": {
+          background: "rgba(25,118,210,0.08)",
+        },
+      },
+    },
+  },
+};
+
 export const getTheme = (mode = "light") =>
   createTheme({
     palette: {
@@ -41,7 +97,7 @@ export const getTheme = (mode = "light") =>
             }
           : {
               default: "#0A1929",
-              paper: "rgba(14,25,42,0.75)",
+              paper: "rgba(12,20,35,0.84)",
             },
 
       text:
@@ -51,7 +107,7 @@ export const getTheme = (mode = "light") =>
               secondary: "#627D98",
             }
           : {
-              primary: "#FFFFFF",
+              primary: "#F8FAFC",
               secondary: "#A9BDD1",
             },
     },
@@ -96,15 +152,13 @@ export const getTheme = (mode = "light") =>
     },
 
     components: {
+      ...commonOverrides,
       MuiAppBar: {
         styleOverrides: {
           root: {
-            background: "rgba(255,255,255,0.72)",
-            backdropFilter: "blur(20px)",
-            WebkitBackdropFilter: "blur(20px)",
-            borderBottom: "1px solid rgba(255,255,255,0.3)",
-            boxShadow: "none",
-            color: "#102A43",
+            background: mode === "light" ? "rgba(255,255,255,0.72)" : "rgba(10,25,41,0.82)",
+            color: mode === "light" ? "#102A43" : "#F8FAFC",
+            borderBottom: mode === "light" ? "1px solid rgba(255,255,255,0.3)" : "1px solid rgba(255,255,255,0.08)",
           },
         },
       },
@@ -112,13 +166,9 @@ export const getTheme = (mode = "light") =>
       MuiPaper: {
         styleOverrides: {
           root: {
-            background: "rgba(255,255,255,0.72)",
-            backdropFilter: "blur(20px)",
-            WebkitBackdropFilter: "blur(20px)",
-            border: "1px solid rgba(255,255,255,0.35)",
-            boxShadow:
-              "0 8px 32px rgba(31, 38, 135, 0.12)",
-            backgroundImage: "none",
+            background: mode === "light" ? "rgba(255,255,255,0.72)" : "rgba(15,25,40,0.9)",
+            border: mode === "light" ? "1px solid rgba(255,255,255,0.35)" : "1px solid rgba(255,255,255,0.08)",
+            boxShadow: mode === "light" ? "0 8px 32px rgba(31, 38, 135, 0.12)" : "0 8px 32px rgba(2, 6, 23, 0.35)",
           },
         },
       },
@@ -126,50 +176,9 @@ export const getTheme = (mode = "light") =>
       MuiCard: {
         styleOverrides: {
           root: {
-            borderRadius: 24,
-            background: "rgba(255,255,255,0.75)",
-            backdropFilter: "blur(18px)",
-            WebkitBackdropFilter: "blur(18px)",
-            border: "1px solid rgba(255,255,255,0.4)",
-            boxShadow:
-              "0 8px 32px rgba(15, 23, 42, 0.08)",
-          },
-        },
-      },
-
-      MuiButton: {
-        styleOverrides: {
-          root: {
-            borderRadius: 999,
-            paddingLeft: 24,
-            paddingRight: 24,
-            transition: "all 0.3s ease",
-          },
-
-          contained: {
-            background:
-              "linear-gradient(135deg,#1976D2,#42A5F5)",
-
-            boxShadow:
-              "0 10px 25px rgba(25,118,210,0.25)",
-
-            "&:hover": {
-              background:
-                "linear-gradient(135deg,#1565C0,#2196F3)",
-
-              transform: "translateY(-2px)",
-
-              boxShadow:
-                "0 15px 30px rgba(25,118,210,0.35)",
-            },
-          },
-
-          outlined: {
-            borderColor: "#1976D2",
-
-            "&:hover": {
-              background: "rgba(25,118,210,0.08)",
-            },
+            background: mode === "light" ? "rgba(255,255,255,0.75)" : "rgba(15,25,40,0.9)",
+            border: mode === "light" ? "1px solid rgba(255,255,255,0.4)" : "1px solid rgba(255,255,255,0.08)",
+            boxShadow: mode === "light" ? "0 8px 32px rgba(15, 23, 42, 0.08)" : "0 8px 32px rgba(2, 6, 23, 0.32)",
           },
         },
       },
@@ -177,9 +186,8 @@ export const getTheme = (mode = "light") =>
       MuiDrawer: {
         styleOverrides: {
           paper: {
-            background: "rgba(255,255,255,0.85)",
-            backdropFilter: "blur(25px)",
-            WebkitBackdropFilter: "blur(25px)",
+            background: mode === "light" ? "rgba(255,255,255,0.85)" : "rgba(10,25,41,0.95)",
+            color: mode === "light" ? "#102A43" : "#F8FAFC",
           },
         },
       },
@@ -188,7 +196,7 @@ export const getTheme = (mode = "light") =>
         styleOverrides: {
           root: {
             "& .MuiOutlinedInput-root": {
-              background: "rgba(255,255,255,0.6)",
+              background: mode === "light" ? "rgba(255,255,255,0.6)" : "rgba(15,23,42,0.75)",
               backdropFilter: "blur(12px)",
               borderRadius: 16,
             },
@@ -200,7 +208,6 @@ export const getTheme = (mode = "light") =>
         styleOverrides: {
           root: {
             transition: "0.3s",
-
             "&:hover": {
               background: "rgba(25,118,210,0.08)",
               transform: "scale(1.05)",

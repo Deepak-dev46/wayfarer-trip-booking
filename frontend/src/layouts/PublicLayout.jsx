@@ -11,7 +11,7 @@ export default function PublicLayout() {
   const hideFab = location.pathname.startsWith('/booking');
 
   return (
-    <Box sx={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
+    <Box sx={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', bgcolor: 'background.default' }}>
       <ScrollToTop />
       <Navbar />
       <Box component="main" sx={{ flexGrow: 1 }}>
