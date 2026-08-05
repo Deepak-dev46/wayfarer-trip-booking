@@ -1,5 +1,6 @@
 package com.serviceeverz.wayfarer.service;
 
+import com.serviceeverz.wayfarer.dto.common.MailRequest;
 import com.serviceeverz.wayfarer.entity.Booking;
 import com.serviceeverz.wayfarer.exception.BadRequestException;
 import com.serviceeverz.wayfarer.exception.ResourceNotFoundException;
@@ -18,9 +19,11 @@ public class BookingService {
     private static final Set<String> VALID_STATUSES = Set.of("Pending", "Confirmed", "Cancelled");
 
     private final BookingRepository bookingRepository;
+    private final MailService mailService;
 
-    public BookingService(BookingRepository bookingRepository) {
+    public BookingService(BookingRepository bookingRepository, MailService mailService) {
         this.bookingRepository = bookingRepository;
+        this.mailService = mailService;
     }
 
     @Transactional(readOnly = true)
@@ -38,7 +41,32 @@ public class BookingService {
         booking.setId(null);
         booking.setStatus("Pending");
         booking.setCreatedAt(LocalDate.now());
-        return bookingRepository.save(booking);
+        Booking b= bookingRepository.save(booking);
+        String emailBody = """
+        		Dear Team,
+        		 
+        		A new booking has been made by %s for %s.
+        		 
+        		Please log in to the application to review the booking details and take the necessary action.
+        		
+        		Contact Number: %s
+        		 
+        		Thank you.
+        		 
+        		Best regards,
+        		%s
+        		""".formatted(booking.getEmail(), booking.getPackageTitle(), booking.getPhone(), "Tripa Holidays");
+        		 
+        try {
+        	MailRequest req= new MailRequest();
+        	req.setBody(emailBody);
+        	req.setSubject("New Booking Arrived!! Please Check the application.");
+        	req.setTo("dpak8055@gmail.com");
+			mailService.sendEmail(req);
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+        return b;
     }
 
     public Booking updateStatus(Long id, String status) {

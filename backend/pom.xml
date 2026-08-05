@@ -12,10 +12,10 @@
     </parent>
 
     <groupId>com.serviceeverz</groupId>
-    <artifactId>wayfarer-backend</artifactId>
+    <artifactId>Tripa-Tour-backend</artifactId>
     <version>1.0.0</version>
-    <name>wayfarer-backend</name>
-    <description>Spring Boot backend for the Wayfarer trip booking platform</description>
+    <name>Tripa Tour-backend</name>
+    <description>Spring Boot backend for the Tripa Tour trip booking platform</description>
 
     <properties>
         <java.version>17</java.version>
@@ -23,6 +23,10 @@
     </properties>
 
     <dependencies>
+	    <dependency>
+	      <groupId>org.springframework.boot</groupId>
+	      <artifactId>spring-boot-starter-mail</artifactId>
+	    </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>

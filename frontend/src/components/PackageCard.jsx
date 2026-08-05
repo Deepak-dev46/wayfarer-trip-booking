@@ -50,7 +50,7 @@ export default function PackageCard({ pkg, index = 0 }) {
             <Chip
               label={pkg.category}
               size="small"
-              sx={{ bgcolor: 'rgba(255,255,255,0.9)', fontWeight: 700 }}
+              sx={{ bgcolor: 'rgba(128, 123, 123, 0.9)', fontWeight: 700 }}
             />
           </Stack>
           {pkg.trending && (

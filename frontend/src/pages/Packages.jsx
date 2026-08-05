@@ -33,7 +33,7 @@ export default function Packages() {
   const [category, setCategory] = useState(searchParams.get('category') || '');
   const [tripType, setTripType] = useState(searchParams.get('tripType') || '');
   const [duration, setDuration] = useState('Any');
-  const [priceRange, setPriceRange] = useState([1000, 2500]);
+  const [priceRange, setPriceRange] = useState([1000, 10000]);
   const [minRating, setMinRating] = useState(0);
   const [sort, setSort] = useState('popular');
   const [page, setPage] = useState(1);
@@ -76,7 +76,7 @@ export default function Packages() {
   useEffect(() => setPage(1), [query, category, tripType, duration, priceRange, minRating, sort]);
 
   const clearFilters = () => {
-    setQuery(''); setCategory(''); setTripType(''); setDuration('Any'); setPriceRange([1000, 2500]); setMinRating(0); setSort('popular');
+    setQuery(''); setCategory(''); setTripType(''); setDuration('Any'); setPriceRange([1000, 10000]); setMinRating(0); setSort('popular');
   };
 
   const FilterPanel = (
@@ -114,7 +114,7 @@ export default function Packages() {
         <Slider
           value={priceRange}
           onChange={(e, v) => setPriceRange(v)}
-          min={1000} max={2500} step={50}
+          min={1000} max={10000} step={50}
           valueLabelDisplay="auto"
           color="secondary"
         />
@@ -167,9 +167,9 @@ export default function Packages() {
         <Grid item xs={12} md={9}>
           {loading ? <CardGridSkeleton count={8} /> : (
             <>
-              <Grid container spacing={3}>
+              <Grid container spacing={3} >
                 {paged.map((p, i) => (
-                  <Grid item xs={12} sm={6} md={4} key={p.id}>
+                  <Grid item xs={12} sm={6} md={4} key={p.id} >
                     <PackageCard pkg={p} index={i} />
                   </Grid>
                 ))}

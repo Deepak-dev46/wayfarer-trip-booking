@@ -32,9 +32,9 @@ export default function Contact() {
       <Grid container spacing={5}>
         <Grid item xs={12} md={5}>
           <Stack spacing={3}>
-            <InfoRow icon={PlaceIcon} title="Office" text="148 Harbor Row, Portside, CA 94016" />
-            <InfoRow icon={PhoneIcon} title="Phone" text="+1 (555) 019-2837" />
-            <InfoRow icon={EmailIcon} title="Email" text="hello@wayfarer-trips.example" />
+            <InfoRow icon={PlaceIcon} title="Office" text="38/13 Desigar Street, Vadapalani, Chennai 600026" />
+            <InfoRow icon={PhoneIcon} title="Phone" text="+91 90030 14817" />
+            <InfoRow icon={EmailIcon} title="Email" text="leintelligensiagroup@gmail.com" />
             <Box
               component="img"
               src="https://images.unsplash.com/photo-1488646953014-85cb44e25828?w=800&q=80"

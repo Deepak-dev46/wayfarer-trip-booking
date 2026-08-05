@@ -1,70 +1,67 @@
 [
-  { "id": "p1", "title": "Santorini Caldera Escape", "destinationId": "d1", "location": "Santorini, Greece", "category": "Honeymoon", "duration": 6, "price": 1899, "rating": 4.9, "reviewCount": 214, "featured": true, "trending": true, "images": ["https://images.unsplash.com/photo-1570077188670-e3a8d69ac5ff?w=1200&q=80", "https://images.unsplash.com/photo-1533105079780-92b9be482077?w=1200&q=80", "https://images.unsplash.com/photo-1601581875309-fafbf2d3ed3a?w=1200&q=80"], "shortDescription": "Cliffside suites, sunset sails, and volcanic wine tastings.", "description": "Six unhurried days along the Santorini caldera: private-terrace stays carved into the cliffs, a catamaran sunset sail past the volcano, and a walking tour of the island's oldest wineries. Built for couples who want the postcard view without the crowds.", "included": ["5 nights boutique cliffside hotel", "Daily breakfast", "Sunset catamaran cruise", "Wine tasting tour", "Airport transfers"], "excluded": ["International flights", "Travel insurance", "Lunches & dinners (except day 3)", "Personal expenses"], "tourPlan": [
-      { "day": 1, "title": "Arrival in Fira", "detail": "Transfer to your cliffside suite, welcome dinner overlooking the caldera." },
-      { "day": 2, "title": "Oia & the Blue Domes", "detail": "Guided walk through Oia's whitewashed lanes, free afternoon." },
-      { "day": 3, "title": "Wine Country", "detail": "Vineyard tour and tasting across three historic wineries." },
-      { "day": 4, "title": "Sunset Sail", "detail": "Catamaran cruise past the volcano and hot springs, swim stop included." },
-      { "day": 5, "title": "Free Day", "detail": "Optional spa, beach clubs at Perissa, or explore Fira on your own." },
-      { "day": 6, "title": "Departure", "detail": "Morning at leisure, transfer to the airport." }
-    ] },
-  { "id": "p2", "title": "Kyoto Temples & Tea", "destinationId": "d2", "location": "Kyoto, Japan", "category": "Culture", "duration": 7, "price": 2199, "rating": 4.8, "reviewCount": 168, "featured": true, "trending": false, "images": ["https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?w=1200&q=80", "https://images.unsplash.com/photo-1493759086499-6b7c1e0b3e1a?w=1200&q=80"], "shortDescription": "Bamboo groves, temple mornings, and a tea ceremony.", "description": "Seven days moving at the pace of Kyoto itself — early temple visits before the crowds, a private tea ceremony with a local master, and an afternoon cycling the Philosopher's Path in autumn light.", "included": ["6 nights ryokan-style hotel", "Daily breakfast", "Private tea ceremony", "Bamboo grove & Fushimi Inari guided tour", "JR local transport pass"], "excluded": ["International flights", "Travel insurance", "Most lunches & dinners", "Personal expenses"], "tourPlan": [
-      { "day": 1, "title": "Arrival", "detail": "Check-in, evening stroll through Gion." },
-      { "day": 2, "title": "Fushimi Inari", "detail": "Early climb through the thousand torii gates." },
-      { "day": 3, "title": "Arashiyama", "detail": "Bamboo grove, monkey park, riverside lunch." },
-      { "day": 4, "title": "Tea Ceremony", "detail": "Private ceremony, calligraphy workshop." },
-      { "day": 5, "title": "Philosopher's Path", "detail": "Cycling tour past canals and small temples." },
-      { "day": 6, "title": "Nara Day Trip", "detail": "Deer park and Todai-ji temple." },
-      { "day": 7, "title": "Departure", "detail": "Free morning, transfer to Kansai airport." }
-    ] },
-  { "id": "p3", "title": "Banff & the Icefields Parkway", "destinationId": "d3", "location": "Banff, Canada", "category": "Adventure", "duration": 5, "price": 1650, "rating": 4.7, "reviewCount": 92, "featured": false, "trending": true, "images": ["https://images.unsplash.com/photo-1503614472-8c93d56e92ce?w=1200&q=80", "https://images.unsplash.com/photo-1500534623283-312aade485b7?w=1200&q=80"], "shortDescription": "Turquoise lakes, glaciers, and mountain trails.", "description": "Five days chasing the Rockies' greatest hits: Lake Louise at sunrise, a glacier walk on the Athabasca, and a canoe paddle on Moraine Lake before the day-trippers arrive.", "included": ["4 nights mountain lodge", "Daily breakfast", "Glacier walk with certified guide", "Canoe rental at Moraine Lake", "All park entrance fees"], "excluded": ["Flights to Calgary", "Travel insurance", "Lunches & dinners", "Gear rental beyond canoe"], "tourPlan": [
-      { "day": 1, "title": "Arrival in Banff", "detail": "Settle in, evening at Banff Gondola for sunset." },
-      { "day": 2, "title": "Lake Louise", "detail": "Sunrise canoe, hike to Lake Agnes Tea House." },
-      { "day": 3, "title": "Icefields Parkway", "detail": "Scenic drive north, glacier walk on the Athabasca." },
-      { "day": 4, "title": "Moraine Lake", "detail": "Early paddle, afternoon at Johnston Canyon." },
-      { "day": 5, "title": "Departure", "detail": "Morning at leisure, transfer to Calgary." }
-    ] },
-  { "id": "p4", "title": "Marrakech Souks & Sahara", "destinationId": "d4", "location": "Marrakech, Morocco", "category": "Culture", "duration": 6, "price": 1420, "rating": 4.6, "reviewCount": 137, "featured": true, "trending": true, "images": ["https://images.unsplash.com/photo-1489749798305-4fea3ae63d43?w=1200&q=80", "https://images.unsplash.com/photo-1489493887464-892be6d1daae?w=1200&q=80"], "shortDescription": "Riad stays, spice souks, and a night under desert stars.", "description": "Six days from the pink alleys of the Marrakech medina to a Berber camp beneath the Sahara stars, with a stop in the Atlas Mountains along the way.", "included": ["3 nights riad in Marrakech", "2 nights desert camp", "Camel trek at sunset", "4x4 transport across the Atlas", "Daily breakfast"], "excluded": ["International flights", "Travel insurance", "Most dinners in Marrakech", "Personal expenses"], "tourPlan": [
-      { "day": 1, "title": "Arrival in Marrakech", "detail": "Riad check-in, evening in Jemaa el-Fnaa square." },
-      { "day": 2, "title": "Medina & Souks", "detail": "Guided walk through the spice and leather souks." },
-      { "day": 3, "title": "Atlas Mountains", "detail": "Drive over the High Atlas, Berber village stop." },
-      { "day": 4, "title": "Into the Sahara", "detail": "Camel trek at sunset, night in a desert camp." },
-      { "day": 5, "title": "Return to Marrakech", "detail": "Drive back via Ouarzazate kasbahs." },
-      { "day": 6, "title": "Departure", "detail": "Free morning, transfer to the airport." }
-    ] },
-  { "id": "p5", "title": "Bali Rice Terraces & Coast", "destinationId": "d5", "location": "Bali, Indonesia", "category": "Beach", "duration": 8, "price": 1350, "rating": 4.8, "reviewCount": 251, "featured": true, "trending": true, "images": ["https://images.unsplash.com/photo-1537996194471-e657df975ab4?w=1200&q=80", "https://images.unsplash.com/photo-1537953773345-d172ccf13cf1?w=1200&q=80"], "shortDescription": "Ubud's terraces, sea temples, and Gili beach days.", "description": "Eight days split between the green terraces of Ubud and the beaches of the Gili Islands, with a sunrise volcano hike and a sea temple visit at Tanah Lot.", "included": ["4 nights Ubud villa", "3 nights Gili beach bungalow", "Mount Batur sunrise trek", "Tanah Lot temple tour", "Speedboat transfers"], "excluded": ["International flights", "Travel insurance", "Most meals", "Water sports equipment"], "tourPlan": [
-      { "day": 1, "title": "Arrival in Ubud", "detail": "Villa check-in, evening rice terrace walk." },
-      { "day": 2, "title": "Mount Batur Sunrise", "detail": "Pre-dawn trek, breakfast at the summit." },
-      { "day": 3, "title": "Temples & Terraces", "detail": "Tegalalang terraces and Tirta Empul temple." },
-      { "day": 4, "title": "Tanah Lot", "detail": "Sea temple visit, sunset dinner on the coast." },
-      { "day": 5, "title": "Transfer to Gili", "detail": "Speedboat to Gili Trawangan, beach afternoon." },
-      { "day": 6, "title": "Snorkeling Day", "detail": "Boat trip to reefs, turtle spotting." },
-      { "day": 7, "title": "Free Beach Day", "detail": "Optional diving, cycling, or hammock time." },
-      { "day": 8, "title": "Departure", "detail": "Transfer back to Denpasar airport." }
-    ] },
-  { "id": "p6", "title": "Iceland Ring Road Lights", "destinationId": "d6", "location": "Reykjavik, Iceland", "category": "Adventure", "duration": 6, "price": 2450, "rating": 4.9, "reviewCount": 88, "featured": false, "trending": true, "images": ["https://images.unsplash.com/photo-1504829857797-ddff29c27927?w=1200&q=80", "https://images.unsplash.com/photo-1476610182048-b716b8518aae?w=1200&q=80"], "shortDescription": "Waterfalls, glacier lagoons, and the aurora.", "description": "Six days circling Iceland's south coast: black sand beaches, glacier lagoons, and evenings spent chasing the northern lights away from city glow.", "included": ["5 nights countryside hotels", "4x4 vehicle & driver-guide", "Glacier lagoon boat tour", "Northern lights evening excursions", "Daily breakfast"], "excluded": ["International flights", "Travel insurance", "Lunches & dinners", "Blue Lagoon entry"], "tourPlan": [
-      { "day": 1, "title": "Reykjavik", "detail": "City walk, evening aurora forecast briefing." },
-      { "day": 2, "title": "Golden Circle", "detail": "Geysir, Gullfoss, Thingvellir National Park." },
-      { "day": 3, "title": "South Coast Waterfalls", "detail": "Seljalandsfoss and Skogafoss, black sand beach." },
-      { "day": 4, "title": "Glacier Lagoon", "detail": "Boat tour among icebergs at Jokulsarlon." },
-      { "day": 5, "title": "Return Drive", "detail": "Scenic return, final aurora hunt." },
-      { "day": 6, "title": "Departure", "detail": "Transfer to Keflavik airport." }
-    ] },
-  { "id": "p7", "title": "Cape Town & the Winelands", "destinationId": "d7", "location": "Cape Town, South Africa", "category": "Luxury", "duration": 7, "price": 2100, "rating": 4.7, "reviewCount": 104, "featured": false, "trending": false, "images": ["https://images.unsplash.com/photo-1580060839134-75a50c8de3a1?w=1200&q=80", "https://images.unsplash.com/photo-1580977276076-ae4b8c219b8e?w=1200&q=80"], "shortDescription": "Table Mountain, penguins, and Stellenbosch wine.", "description": "Seven days pairing city and coast: a cable car up Table Mountain, penguins at Boulders Beach, and two days tasting through the Stellenbosch and Franschhoek winelands.", "included": ["6 nights boutique hotel", "Table Mountain cable car", "Stellenbosch & Franschhoek wine tour", "Boulders Beach penguin visit", "Daily breakfast"], "excluded": ["International flights", "Travel insurance", "Most lunches & dinners", "Optional safari add-on"], "tourPlan": [
-      { "day": 1, "title": "Arrival", "detail": "City Bowl check-in, sunset at Camps Bay." },
-      { "day": 2, "title": "Table Mountain", "detail": "Cable car ascent, city center walking tour." },
-      { "day": 3, "title": "Cape Peninsula", "detail": "Boulders Beach penguins, Cape Point drive." },
-      { "day": 4, "title": "Stellenbosch", "detail": "Wine tasting across three historic estates." },
-      { "day": 5, "title": "Franschhoek", "detail": "Wine tram, gourmet lunch in the valley." },
-      { "day": 6, "title": "Free Day", "detail": "Optional shark cage diving or V&A Waterfront." },
-      { "day": 7, "title": "Departure", "detail": "Transfer to Cape Town International." }
-    ] },
-  { "id": "p8", "title": "Machu Picchu Trail", "destinationId": "d8", "location": "Cusco, Peru", "category": "Adventure", "duration": 7, "price": 1780, "rating": 4.9, "reviewCount": 176, "featured": true, "trending": false, "images": ["https://images.unsplash.com/photo-1526392060635-9d6019884377?w=1200&q=80", "https://images.unsplash.com/photo-1587595431973-160d0d94add1?w=1200&q=80"], "shortDescription": "Andean villages and sunrise over the lost city.", "description": "Seven days acclimatizing in Cusco's Sacred Valley before a guided trek to Machu Picchu, timed to arrive as the sun clears the surrounding peaks.", "included": ["4 nights Cusco/Sacred Valley hotel", "2 nights trail camping (full gear)", "Entrance to Machu Picchu", "Professional trekking guide & porters", "Daily breakfast + trail meals"], "excluded": ["International flights", "Travel insurance", "Sleeping bag rental", "Tips for guides & porters"], "tourPlan": [
-      { "day": 1, "title": "Arrival in Cusco", "detail": "Acclimatization day, coca tea, short city walk." },
-      { "day": 2, "title": "Sacred Valley", "detail": "Pisac market and Ollantaytambo ruins." },
-      { "day": 3, "title": "Trail Start", "detail": "Begin trek, first mountain campsite." },
-      { "day": 4, "title": "High Pass", "detail": "Cross the trail's highest point, valley descent." },
-      { "day": 5, "title": "Cloud Forest", "detail": "Descend through orchid-lined cloud forest." },
-      { "day": 6, "title": "Machu Picchu", "detail": "Sunrise arrival at the Sun Gate, guided site tour." },
-      { "day": 7, "title": "Departure", "detail": "Train back to Cusco, transfer to airport." }
-    ] }
+  {
+    "id": "p1",
+    "title": "Santorini Caldera Escape",
+    "destinationId": "d1",
+    "location": "Santorini, Greece",
+    "category": "Honeymoon",
+    "duration": 6,
+    "price": 1899,
+    "rating": 4.9,
+    "reviewCount": 214,
+    "featured": true,
+    "trending": true,
+    "images": [
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRsNcLwjTphsdNGUkbbEEgnCqTsuoXkywM8SylPExfoLxqIZ8RXUP1DNI1L&s=10",
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQkT9hwz6bDStXGkmERmUU9YI9C3Gr8KP3yM7gF5wjoy6hSD5LNOvRzYRJP&s=10",
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTV4cC5dbbwrVs4MaAPwzaPinzB2oNv5c4QJzjj0nssaJBLcOrk1SKgmJZQ&s=10"
+    ],
+    "shortDescription": "Cliffside suites, sunset sails, and volcanic wine tastings.",
+    "description": "Six unhurried days along the Santorini caldera: private-terrace stays carved into the cliffs, a catamaran sunset sail past the volcano, and a walking tour of the island's oldest wineries. Built for couples who want the postcard view without the crowds.",
+    "included": [
+      "5 nights boutique cliffside hotel",
+      "Daily breakfast",
+      "Sunset catamaran cruise",
+      "Wine tasting tour",
+      "Airport transfers"
+    ],
+    "excluded": [
+      "International flights",
+      "Travel insurance",
+      "Lunches & dinners (except day 3)",
+      "Personal expenses"
+    ],
+    "tourPlan": [
+      {
+        "day": 1,
+        "title": "Arrival in Fira",
+        "detail": "Transfer to your cliffside suite, welcome dinner overlooking the caldera."
+      },
+      {
+        "day": 2,
+        "title": "Oia & the Blue Domes",
+        "detail": "Guided walk through Oia's whitewashed lanes, free afternoon."
+      },
+      {
+        "day": 3,
+        "title": "Wine Country",
+        "detail": "Vineyard tour and tasting across three historic wineries."
+      },
+      {
+        "day": 4,
+        "title": "Sunset Sail",
+        "detail": "Catamaran cruise past the volcano and hot springs, swim stop included."
+      },
+      {
+        "day": 5,
+        "title": "Free Day",
+        "detail": "Optional spa, beach clubs at Perissa, or explore Fira on your own."
+      },
+      {
+        "day": 6,
+        "title": "Departure",
+        "detail": "Morning at leisure, transfer to the airport."
+      }
+    ]
+  }
 ]

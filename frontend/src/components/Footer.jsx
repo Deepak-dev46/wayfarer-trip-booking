@@ -43,7 +43,7 @@ export default function Footer() {
 
 
   return (
-    <Box component="footer" sx={{ bgcolor: 'primary.main', color: '#fff', pt: 8, pb: 4, mt: 10 }}>
+    <Box component="footer" sx={{ bgcolor: 'primary.main', color: '#fff', pt: 8, pb: 4, mt: 10}}>
       <Container maxWidth="lg">
         <Grid container spacing={5}>
           <Grid item xs={12} md={4}>
@@ -77,7 +77,7 @@ export default function Footer() {
           <Grid item xs={6} md={2}>
             <Typography variant="subtitle1" fontWeight={700} mb={2}>Top Destinations</Typography>
             <Stack spacing={1}>
-              {['Santorini', 'Bali', 'Kyoto', 'Marrakech', 'Iceland'].map((d) => (
+              {['Chennai', 'Bangalore', 'Goa', 'Ooty', 'Kerala'].map((d) => (
                 <Typography key={d} component={Link} to="/destinations" variant="body2" sx={{ opacity: 0.75, '&:hover': { opacity: 1 } }}>
                   {d}
                 </Typography>
@@ -114,7 +114,7 @@ export default function Footer() {
               </Stack>
               <Stack direction="row" spacing={1} alignItems="center">
                 <PhoneIcon fontSize="small" sx={{ opacity: 0.75 }} />
-                <Typography variant="body2" sx={{ opacity: 0.75 }}>+91 90430 13104</Typography>
+                <Typography variant="body2" sx={{ opacity: 0.75 }}>+91 90030 14817</Typography>
               </Stack>
               <Stack direction="row" spacing={1} alignItems="center">
                 <PlaceIcon fontSize="small" sx={{ opacity: 0.75 }} />

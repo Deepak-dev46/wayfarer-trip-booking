@@ -1,10 +1,3 @@
 [
-  { "id": "d1", "name": "Santorini, Greece", "country": "Greece", "image": "https://images.unsplash.com/photo-1570077188670-e3a8d69ac5ff?w=800&q=80", "packageCount": 4, "blurb": "Whitewashed cliffs over a caldera of impossible blue." },
-  { "id": "d2", "name": "Kyoto, Japan", "country": "Japan", "image": "https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?w=800&q=80", "packageCount": 3, "blurb": "Temple bells, bamboo groves, and quiet gardens." },
-  { "id": "d3", "name": "Banff, Canada", "country": "Canada", "image": "https://images.unsplash.com/photo-1503614472-8c93d56e92ce?w=800&q=80", "packageCount": 2, "blurb": "Glacial lakes ringed by the Canadian Rockies." },
-  { "id": "d4", "name": "Marrakech, Morocco", "country": "Morocco", "image": "https://images.unsplash.com/photo-1489749798305-4fea3ae63d43?w=800&q=80", "packageCount": 3, "blurb": "Souks, spice, and the pink walls of the medina." },
-  { "id": "d5", "name": "Bali, Indonesia", "country": "Indonesia", "image": "https://images.unsplash.com/photo-1537996194471-e657df975ab4?w=800&q=80", "packageCount": 5, "blurb": "Rice terraces, sea temples, and slow mornings." },
-  { "id": "d6", "name": "Reykjavik, Iceland", "country": "Iceland", "image": "https://images.unsplash.com/photo-1504829857797-ddff29c27927?w=800&q=80", "packageCount": 2, "blurb": "Waterfalls, glaciers, and the northern lights." },
-  { "id": "d7", "name": "Cape Town, South Africa", "country": "South Africa", "image": "https://images.unsplash.com/photo-1580060839134-75a50c8de3a1?w=800&q=80", "packageCount": 2, "blurb": "Table Mountain meets two oceans." },
-  { "id": "d8", "name": "Cusco & Machu Picchu, Peru", "country": "Peru", "image": "https://images.unsplash.com/photo-1526392060635-9d6019884377?w=800&q=80", "packageCount": 2, "blurb": "Inca trails through the clouds." }
+  { "id": "d1", "name": "Santorini, Greece", "country": "Greece", "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRsNcLwjTphsdNGUkbbEEgnCqTsuoXkywM8SylPExfoLxqIZ8RXUP1DNI1L&s=10", "packageCount": 4, "blurb": "Whitewashed cliffs over a caldera of impossible blue." }
 ]

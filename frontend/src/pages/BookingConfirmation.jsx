@@ -3,11 +3,15 @@ import { Container, Paper, Typography, Button, Stack, Box, Divider } from '@mui/
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import { motion } from 'framer-motion';
 import { formatDate, formatPrice } from '../utils/formatters';
+import { useEffect } from 'react';
 
 export default function BookingConfirmation() {
   const location = useLocation();
   const navigate = useNavigate();
   const booking = location.state?.booking;
+
+  useEffect(()=>{console.log(booking);
+  },[])
 
   if (!booking) {
     return (
@@ -25,7 +29,8 @@ export default function BookingConfirmation() {
           <CheckCircleIcon sx={{ fontSize: 64, color: 'success.main', mb: 2 }} />
           <Typography variant="h4" fontWeight={700} mb={1}>Booking Received!</Typography>
           <Typography color="text.secondary" mb={4}>
-            Confirmation #{booking.id?.slice(-8).toUpperCase()} — we'll email you within 24 hours to confirm.
+            {/* Confirmation #{booking.id?.slice(-8).toUpperCase()} — we'll email you within 24 hours to confirm. */}
+            Confirmation Done!! we'll contact you within 24 hours to confirm.
           </Typography>
 
           <Divider sx={{ mb: 3 }} />
