@@ -20,7 +20,7 @@ export default function Login() {
       await login(email, password);
       navigate(location.state?.from?.pathname || '/');
     } catch (e) {
-      setError(e.message);
+      setError(e.message || 'Incorrect email or password.');
     } finally {
       setSubmitting(false);
     }

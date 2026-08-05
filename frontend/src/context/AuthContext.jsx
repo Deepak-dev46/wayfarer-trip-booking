@@ -27,18 +27,27 @@ export function AuthProvider({ children }) {
   };
 
   const login = async (email, password) => {
-    const res = await authApi.login(email, password);
-    const result = res.data;
-    console.log(result);
-    persist(result);
-    return result;
+    try {
+      const res = await authApi.login(email, password);
+      const result = res.data;
+      persist(result);
+      return result;
+    } catch (error) {
+      const message = error?.response?.data?.message || error?.response?.data?.error || 'Incorrect email or password.';
+      throw new Error(message);
+    }
   };
   
   const register = async (payload) => {
-    const res = await authApi.register(payload);
-    const result = res.data;
-    persist(result);
-    return result;
+    try {
+      const res = await authApi.register(payload);
+      const result = res.data;
+      persist(result);
+      return result;
+    } catch (error) {
+      const message = error?.response?.data?.message || error?.response?.data?.error || 'Unable to create account right now.';
+      throw new Error(message);
+    }
   };
 
   const logout = () =>{persist(null)};

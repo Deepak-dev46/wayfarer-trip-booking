@@ -20,7 +20,7 @@ export default function Register() {
       await signUp({ name, email, phone, password });
       navigate('/');
     } catch (e) {
-      setError(e.message);
+      setError(e.message || 'Unable to create account right now.');
     } finally {
       setSubmitting(false);
     }

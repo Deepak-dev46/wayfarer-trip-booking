@@ -16,6 +16,7 @@ import PersonIcon from '@mui/icons-material/PersonOutline';
 import LogoutIcon from '@mui/icons-material/LogoutOutlined';
 import ExploreIcon from '@mui/icons-material/Explore';
 import VideoLibraryIcon from '@mui/icons-material/VideoLibraryOutlined';
+import LocationOnIcon from '@mui/icons-material/LocationOnOutlined';
 import { useAuth } from '../context/AuthContext';
 
 const drawerWidth = 260;
@@ -25,6 +26,7 @@ const navItems = [
   { label: 'Packages', to: '/admin/packages', icon: InventoryIcon },
   { label: 'Offers', to: '/admin/offers', icon: LocalOfferIcon },
   { label: 'Videos', to: '/admin/videos', icon: VideoLibraryIcon },
+  { label: 'Destinations', to: '/admin/destinations', icon: LocationOnIcon },
   { label: 'Bookings', to: '/admin/bookings', icon: EventNoteIcon },
   { label: 'Contact Messages', to: '/admin/contacts', icon: MailIcon },
   { label: 'Users', to: '/admin/users', icon: PeopleIcon },

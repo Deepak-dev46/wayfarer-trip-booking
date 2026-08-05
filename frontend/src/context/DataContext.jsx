@@ -121,6 +121,38 @@ export function DataProvider({ children }) {
     setVideos((prev) => prev.filter((v) => String(v.id) !== String(id)));
   };
 
+  // ---- Destinations ----
+  const addDestination = async (destination) => {
+    const { data: created } = await destinationApi.addDestination(destination);
+    setDestinations((prev) => [created, ...prev]);
+    return created;
+  };
+  const editDestination = async (id, updates) => {
+    const { data: updated } = await destinationApi.updateDestination(id, updates);
+    setDestinations((prev) => prev.map((d) => (String(d.id) === String(id) ? updated : d)));
+    return updated;
+  };
+  const removeDestination = async (id) => {
+    await destinationApi.deleteDestination(id);
+    setDestinations((prev) => prev.filter((d) => String(d.id) !== String(id)));
+  };
+
+  // ---- Reviews ----
+  const addReview = async (review) => {
+    const { data: created } = await reviewApi.addReview(review);
+    setReviews((prev) => [created, ...prev]);
+    return created;
+  };
+  const editReview = async (id, updates) => {
+    const { data: updated } = await reviewApi.updateReview(id, updates);
+    setReviews((prev) => prev.map((review) => (String(review.id) === String(id) ? updated : review)));
+    return updated;
+  };
+  const removeReview = async (id) => {
+    await reviewApi.deleteReview(id);
+    setReviews((prev) => prev.filter((review) => String(review.id) !== String(id)));
+  };
+
   // ---- Users ----
   const removeUser = async (id) => {
     await userApi.deleteUser(id);
@@ -147,6 +179,12 @@ export function DataProvider({ children }) {
     addVideo,
     editVideo,
     removeVideo,
+    addDestination,
+    editDestination,
+    removeDestination,
+    addReview,
+    editReview,
+    removeReview,
     addBooking,
     setBookingStatus,
     removeBooking,

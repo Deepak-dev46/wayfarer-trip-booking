@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const BASE_URL = 'http://localhost:8085';
+const BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8085';
 const SESSION_KEY = 'wayfarer_session_v1';
 
 const apiClient = axios.create({
@@ -66,6 +66,9 @@ export const userApi = {
 
 export const reviewApi = {
   getReviews: () => apiClient.get('/api/reviews'),
+  addReview: (body) => apiClient.post('/api/reviews', body),
+  updateReview: (id, body) => apiClient.put(`/api/reviews/${id}`, body),
+  deleteReview: (id) => apiClient.delete(`/api/reviews/${id}`),
 };
 
 export const videoApi = {
@@ -79,5 +82,8 @@ export const videoApi = {
 export const destinationApi = {
   getDestinations: () => apiClient.get('/api/destinations'),
   getDestinationById: (id) => apiClient.get(`/api/destinations/${id}`),
+  updateDestination: (id, body) => apiClient.put(`/api/destinations/${id}`, body),
+  deleteDestination: (id) => apiClient.delete(`/api/destinations/${id}`),
+  addDestination: (body) => apiClient.post('/api/destinations', body),
 };
 

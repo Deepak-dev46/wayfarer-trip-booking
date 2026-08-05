@@ -25,6 +25,7 @@ import VideosManage from './admin/VideosManage';
 import BookingsManage from './admin/BookingsManage';
 import ContactsManage from './admin/ContactsManage';
 import UsersManage from './admin/UsersManage';
+import DestinationsManage from './admin/DestinationsManage';
 import Profile from './admin/Profile';
 
 export default function App() {
@@ -46,6 +47,7 @@ export default function App() {
         <Route path="packages" element={<PackagesManage />} />
         <Route path="offers" element={<OffersManage />} />
         <Route path="videos" element={<VideosManage />} />
+        <Route path="destinations" element={<DestinationsManage />} />
         <Route path="bookings" element={<BookingsManage />} />
         <Route path="contacts" element={<ContactsManage />} />
         <Route path="users" element={<UsersManage />} />

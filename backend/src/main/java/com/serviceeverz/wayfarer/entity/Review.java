@@ -20,6 +20,9 @@ public class Review {
     @Column(name = "package_id")
     private Long packageId;
 
+    @Column(name = "user_id")
+    private Long userId;
+
     private String name;
 
     @Column(length = 1000)
@@ -49,6 +52,14 @@ public class Review {
 
     public void setPackageId(Long packageId) {
         this.packageId = packageId;
+    }
+
+    public Long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 
     public String getName() {

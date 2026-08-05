@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import {
   Container, Grid, Box, Typography, Chip, Stack, Button, Rating, Divider, Paper,
-  List, ListItem, ListItemIcon, ListItemText, CircularProgress,
+  List, ListItem, ListItemIcon, ListItemText, CircularProgress, TextField,
 } from '@mui/material';
 import CheckCircleIcon from '@mui/icons-material/CheckCircleOutline';
 import CancelIcon from '@mui/icons-material/HighlightOffOutlined';
@@ -16,6 +16,7 @@ import 'swiper/css/pagination';
 import { motion } from 'framer-motion';
 
 import { useData } from '../context/DataContext';
+import { useAuth } from '../context/AuthContext';
 import { packageApi } from '../services/api';
 import ReviewCard from '../components/ReviewCard';
 import { formatPrice } from '../utils/formatters';
@@ -23,9 +24,13 @@ import { formatPrice } from '../utils/formatters';
 export default function PackageDetails() {
   const { id } = useParams();
   const navigate = useNavigate();
-  const { packages, reviews, loading } = useData();
+  const { packages, reviews, loading, addReview, editReview, removeReview } = useData();
+  const { isAuthenticated, user } = useAuth();
   const [pkg, setPkg] = useState(null);
   const [fetching, setFetching] = useState(true);
+  const [reviewForm, setReviewForm] = useState({ name: '', comment: '', rating: 5 });
+  const [submittingReview, setSubmittingReview] = useState(false);
+  const [editingReview, setEditingReview] = useState(null);
 
   useEffect(() => {
     let mounted = true;
@@ -43,7 +48,50 @@ export default function PackageDetails() {
     return () => { mounted = false; };
   }, [id, packages]);
 
-  const relatedReviews = reviews.filter((r) => r.packageId === id);
+  const relatedReviews = reviews.filter((r) => String(r.packageId) === String(id));
+
+  useEffect(() => {
+    if (user?.name && !reviewForm.name) {
+      setReviewForm((prev) => ({ ...prev, name: user.name }));
+    }
+  }, [user, reviewForm.name]);
+
+  const handleReviewSubmit = async (event) => {
+    event.preventDefault();
+    if (!pkg || !reviewForm.name.trim() || !reviewForm.comment.trim()) return;
+
+    setSubmittingReview(true);
+    try {
+      const payload = {
+        packageId: pkg.id,
+        name: reviewForm.name.trim(),
+        comment: reviewForm.comment.trim(),
+        rating: Number(reviewForm.rating),
+        avatar: '',
+      };
+
+      if (editingReview) {
+        await editReview(editingReview.id, payload);
+      } else {
+        await addReview(payload);
+      }
+
+      setReviewForm({ name: user?.name || '', comment: '', rating: 5 });
+      setEditingReview(null);
+    } finally {
+      setSubmittingReview(false);
+    }
+  };
+
+  const handleEditReview = (review) => {
+    setEditingReview(review);
+    setReviewForm({ name: review.name || user?.name || '', comment: review.comment || '', rating: review.rating || 5 });
+  };
+
+  const handleDeleteReview = async (reviewId) => {
+    if (!window.confirm('Delete this review?')) return;
+    await removeReview(reviewId);
+  };
 
   if (fetching || loading) {
     return (
@@ -141,13 +189,48 @@ export default function PackageDetails() {
               ))}
             </Stack>
 
+            {isAuthenticated ? (
+              <Paper elevation={0} sx={{ p: 3, border: '1px solid', borderColor: 'divider', mb: 4 }}>
+                <Typography variant="h6" fontWeight={700} mb={1.5}>{editingReview ? 'Edit Your Review' : 'Leave a Review'}</Typography>
+                <Typography variant="body2" color="text.secondary" mb={2}>Share your experience to help future travelers choose this trip.</Typography>
+                <Box component="form" onSubmit={handleReviewSubmit} sx={{ display: 'grid', gap: 2 }}>
+                  <TextField label="Your name" value={reviewForm.name} onChange={(e) => setReviewForm((prev) => ({ ...prev, name: e.target.value }))} required />
+                  <TextField label="Your review" multiline rows={3} value={reviewForm.comment} onChange={(e) => setReviewForm((prev) => ({ ...prev, comment: e.target.value }))} required />
+                  <TextField
+                    select
+                    label="Rating"
+                    value={reviewForm.rating}
+                    onChange={(e) => setReviewForm((prev) => ({ ...prev, rating: Number(e.target.value) }))}
+                    SelectProps={{ native: true }}
+                  >
+                    {[5, 4, 3, 2, 1].map((value) => <option key={value} value={value}>{value} stars</option>)}
+                  </TextField>
+                  <Stack direction={{ xs: 'column', sm: 'row' }} spacing={1.5}>
+                    <Button type="submit" variant="contained" color="secondary" disabled={submittingReview}>
+                      {submittingReview ? 'Submitting...' : editingReview ? 'Update Review' : 'Submit Review'}
+                    </Button>
+                    {editingReview && (
+                      <Button variant="outlined" onClick={() => { setEditingReview(null); setReviewForm({ name: user?.name || '', comment: '', rating: 5 }); }}>
+                        Cancel
+                      </Button>
+                    )}
+                  </Stack>
+                </Box>
+              </Paper>
+            ) : (
+              <Paper elevation={0} sx={{ p: 3, border: '1px solid', borderColor: 'divider', mb: 4 }}>
+                <Typography variant="h6" fontWeight={700} mb={1}>Login to review</Typography>
+                <Typography variant="body2" color="text.secondary">Please sign in to share your experience for this trip.</Typography>
+              </Paper>
+            )}
+
             {relatedReviews.length > 0 && (
               <>
                 <Typography variant="h6" fontWeight={700} mb={2}>Traveler Reviews</Typography>
                 <Grid container spacing={2}>
                   {relatedReviews.map((r) => (
                     <Grid item xs={12} sm={6} key={r.id}>
-                      <ReviewCard review={r} />
+                      <ReviewCard review={r} isOwner={isAuthenticated && String(r.userId) === String(user?.id)} onEdit={handleEditReview} onDelete={handleDeleteReview} />
                     </Grid>
                   ))}
                 </Grid>
