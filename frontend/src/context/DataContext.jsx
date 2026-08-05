@@ -1,4 +1,4 @@
-import { createContext, useCallback, useContext, useEffect, useState } from 'react';
+import React, { createContext, useCallback, useContext, useEffect, useState } from 'react';
 import { packageApi, offerApi, bookingApi, contactApi, userApi, destinationApi, reviewApi, videoApi } from '../services/api';
 
 const DataContext = createContext(null);
