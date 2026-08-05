@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://ec2-34-239-245-63.compute-1.amazonaws.com:8085';
+const BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://ec2-34-202-124-205.compute-1.amazonaws.com:8085';
 const SESSION_KEY = 'wayfarer_session_v1';
 
 const apiClient = axios.create({
